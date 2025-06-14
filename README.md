@@ -3,7 +3,7 @@
 ## Description
 - Plateforme dédiées aux artisans de la région
 - Permet aux particuliers de trouver un artisan et d'avoir facilement les renseignements, prestations, tarif et contact
-- 
+- Accessible à tous , le site est responsif et mobile first
 
 ## Fonctionnalités principales
 - Pages dynamiques
