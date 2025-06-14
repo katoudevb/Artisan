@@ -31,6 +31,6 @@
 - ng serve
 
 
-##Auteur
+## Auteur
 - Kat - Développeuse web full-stack junior
 - Github : katoudevb (https://github.com/katoudevb)
