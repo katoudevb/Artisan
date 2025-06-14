@@ -22,7 +22,7 @@
 - Connaissance des commandes Git
 
 ## Installation du projet 
-- git clone https://github.com/katoudevb/
+- [git clone https://github.com/katoudevb/](https://github.com/katoudevb/Artisan.git)
 - Artisan.git
 - cd Artisan
 - npm install
