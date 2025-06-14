@@ -3,13 +3,14 @@
         <a routerLink="/"><img src="assets/Logo.png" alt="Logo" ></a>
     </div>
     
-    <nav>
-        <ul>
-            <li><a routerLink="/">Accueil</a></li>
-            <li><a routerLink="/batiment">Bâtiment</a></li>
-            <li><a routerLink="/services">Services</a></li>
-            <li><a routerLink="/fabrication">Fabrication</a></li>
-            <li><a routerLink="/alimentation">Alimentation</a></li>
-        </ul>
+    <nav class="menu">
+  <a routerLink="/batiments" routerLinkActive="active">Bâtiments</a>
+  <a routerLink="/services" routerLinkActive="active">Services</a>
+  <a routerLink="/fabrication" routerLinkActive="active">Fabrication</a>
+  <a routerLink="/alimentation" routerLinkActive="active">Alimentation</a>
     </nav>
-</header>
+    
+    <div class="search">
+        <input type="text" placeholder="Rechercher un artisan..." />
+        <button type="submit"><i class="bi bi-search"></i></button>
+    </div>

@@ -11,19 +11,19 @@ import { CommonModule } from '@angular/common';
 export class HomeComponent {
   artisansDuMois = [
     {
-      nom: "Éco Plomberie",
-      specialite: "Plomberie",
-      localisation: "Lyon",
-      note: 5
-    },
-    {
-      nom: "Menuiserie Bois & Design",
-      specialite: "Menuiserie",
-      localisation: "Toulouse",
+      nom: "Boulange&Moi",
+      specialite: "Boulanger",
+      localisation: "Paris",
       note: 4
     },
     {
-      nom: "ÉlecPro Services",
+      nom: "MaçonneRire",
+      specialite: "Maçonnerie",
+      localisation: "Lyon",
+      note: 3
+    },
+    {
+      nom: "Électri.Sien",
       specialite: "Électricité",
       localisation: "Marseille",
       note: 4

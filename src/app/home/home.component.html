@@ -30,9 +30,6 @@
       <div class="card h-100 shadow-sm">
         <div class="card-body">
           <h5 class="card-title">{{ artisan.nom }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ artisan.specialite }}</h6>
-          <p class="card-text"><strong>Localisation :</strong> {{ artisan.localisation }}</p>
-
           <div class="stars">
             <ng-container *ngFor="let star of [1,2,3,4,5]; let i = index">
               <i class="bi"
@@ -40,8 +37,10 @@
               </i>
             </ng-container>
           </div>
+          <h6 class="card-subtitle mb-2 text-muted">{{ artisan.specialite }}</h6>
+          <p class="card-text"><strong>Localisation :</strong> {{ artisan.localisation }}</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </section>
