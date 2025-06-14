@@ -34,6 +34,7 @@
             "styles": [
               "src/styles.scss"
             ],
+
             "scripts": [],
             "server": "src/main.server.ts",
             "outputMode": "server",
@@ -90,11 +91,9 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
+            "src/favicon.ico",
+            "src/assets"
+      ],
             "styles": [
               "src/styles.scss"
             ],
