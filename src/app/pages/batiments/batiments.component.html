@@ -1,1 +1,5 @@
-<p>batiments works!</p>
+<div class="row">
+  <div class="col-md-4 mb-4" *ngFor="let artisan of artisans">
+    <app-fiche-artisan [artisan]="artisan"></app-fiche-artisan>
+  </div>
+</div>

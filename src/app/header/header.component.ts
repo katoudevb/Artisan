@@ -8,5 +8,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+onSearch(arg0: string) {
+throw new Error('Method not implemented.');
+}
 
 }

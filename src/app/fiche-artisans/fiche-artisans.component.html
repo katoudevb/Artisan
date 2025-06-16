@@ -1,0 +1,21 @@
+<div
+  class="card h-100 shadow-sm"
+  style="cursor: pointer;"
+  (click)="navigateToFiche()"
+>
+  <div class="card-body">
+    <h5 class="card-title">{{ artisan.nom }}</h5>
+    <div class="mb-2">
+      <ng-container *ngFor="let star of [1,2,3,4,5]; let i = index">
+        <i
+          class="bi"
+          [ngClass]="
+            i < artisan.note ? 'bi-star-fill text-warning' : 'bi-star text-muted'
+          "
+        ></i>
+      </ng-container>
+    </div>
+    <h6 class="card-subtitle mb-2 text-muted">{{ artisan.specialite }}</h6>
+    <p class="card-text"><strong>Localisation :</strong> {{ artisan.localisation }}</p>
+  </div>
+</div>
