@@ -1,20 +1,24 @@
 <header class="shadow-sm py-2">
   <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap">
     
+
     <!-- Logo (gauche) -->
     <div class="logo me-auto">
       <a routerLink="/">
-        <img src="assets/Logo.png" alt="Logo" style="height: 40px;" />
+        <img src="assets/images/Logo.png" alt="Logo" style="height: 40px;" />
       </a>
     </div>
 
+
     <!-- Menu de navigation (centre - proche de la barre de recherche) -->
     <nav class="menu navbar-nav d-none d-lg-flex flex-row gap-2 ms-5 me-3">
+      <a class="btn btn-primary rounded-pill" routerLink="/" routerLinkActive="active">Accueil</a>
       <a class="btn btn-primary rounded-pill" routerLink="/batiments" routerLinkActive="active">Bâtiments</a>
       <a class="btn btn-primary rounded-pill" routerLink="/services" routerLinkActive="active">Services</a>
       <a class="btn btn-primary rounded-pill" routerLink="/fabrication" routerLinkActive="active">Fabrication</a>
       <a class="btn btn-primary rounded-pill" routerLink="/alimentation" routerLinkActive="active">Alimentation</a>
     </nav>
+
 
     <!-- Barre de recherche (droite) -->
     <form class="d-none d-lg-flex" (submit)="onSearch(searchInput.value); $event.preventDefault()">
@@ -30,6 +34,7 @@
       </button>
     </form>
 
+
     <!-- Bouton menu burger (mobile) -->
     <button
       class="navbar-toggler d-lg-none border-0"
@@ -43,6 +48,7 @@
     </button>
 
   </div>
+
 
   <!-- Offcanvas mobile menu -->
   <div

@@ -13,10 +13,15 @@ import { Router } from '@angular/router';
 export class FicheArtisanComponent {
   @Input() artisan!: {
     id: string;
-    nom: string;
-    note: number;
-    specialite: string;
-    localisation: string;
+    name: string;
+    specialty: string;
+    location: string;
+    note: string;
+    about: string;
+    email: string;
+    website: string;
+    category: string;
+    top: boolean;
   };
 
   constructor(private router: Router) {}
