@@ -9,8 +9,6 @@ import { MentionsLegalesComponent } from './pages/mentions-legales/mentions-lega
 import { CguComponent } from './pages/cgu/cgu.component';
 import { ConfidentialiteComponent } from './pages/confidentialite/confidentialite.component';
 import { CookiesComponent } from './pages/cookies/cookies.component';
-//import { FicheArtisanComponent } from './pages/fiche-artisans/fiche-artisas.component';
-
 
 
 export const routes: Routes = [
@@ -23,6 +21,5 @@ export const routes: Routes = [
     { path: 'cgu', component: CguComponent },
     { path: 'confidentialite', component: ConfidentialiteComponent },
     { path: 'cookies', component: CookiesComponent },
-   // { path: 'fiche-artisan/:id', component: FicheArtisanComponent },
     { path: '**', component: NotFoundComponent } // Page 404
 ];

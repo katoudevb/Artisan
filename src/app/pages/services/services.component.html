@@ -1,1 +1,8 @@
-<p>services works!</p>
+<h2>Artisans - Catégorie Services</h2>
+
+<div *ngFor="let artisan of servicesArtisans" class="artisan-card">
+  <h3>{{ artisan.name }}</h3>
+  <p><strong>Spécialité :</strong> {{ artisan.specialty }}</p>
+  <p><strong>Ville :</strong> {{ artisan.location }}</p>
+  <p><strong>Description :</strong> {{ artisan.about }}</p>
+</div>
