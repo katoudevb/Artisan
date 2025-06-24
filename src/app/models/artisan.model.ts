@@ -2,7 +2,7 @@ export interface Artisan {
   id: string;
   name: string;
   specialty: string;
-  note: number; // attention, c’est une string dans le JSON, on la convertira
+  note: string;
   location: string;
   about: string;
   email: string;

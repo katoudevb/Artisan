@@ -28,3 +28,18 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'GraphikXXCondensed', sans-serif;
   color: #0074c7;
 }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}

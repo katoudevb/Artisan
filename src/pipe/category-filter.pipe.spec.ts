@@ -1,4 +1,4 @@
-import { CategoryFilterPipe } from './category-filter.pipe';
+import { CategoryFilterPipe } from '../pipe/category-filter.pipe';
 
 describe('CategoryFilterPipe', () => {
   it('create an instance', () => {
