@@ -1,12 +1,13 @@
+//Définition du modèle Artisan
 export interface Artisan {
   id: string;
   name: string;
   specialty: string;
-  note: string;
-  location: string;
-  about: string;
+  note: number;       
+  location: string;   
+  about: string;      
   email: string;
   website: string;
-  category: string;
+  category: string;   
   top: boolean;
 }

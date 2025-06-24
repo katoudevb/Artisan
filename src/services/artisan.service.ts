@@ -1,28 +1,37 @@
+// Importation du décorateur Injectable pour rendre ce service disponible en injection de dépendances
 import { Injectable } from '@angular/core';
+
+// Importation d'utilitaires RxJS pour travailler avec des Observables
 import { Observable, of } from 'rxjs';
 
+// Définition de l'interface Artisan : décrit le modèle de données d'un artisan
 export interface Artisan {
   id: string;
   name: string;
   specialty: string;
-  note: string;
-  location: string;
-  about: string;
+  note: number;       // Note moyenne sous forme de nombre (ex: 4.5)
+  location: string;   // Localisation géographique
+  about: string;      // Description ou biographie
   email: string;
   website: string;
-  category: string;
-  top: boolean;
+  category: string;   // Catégorie métier (Bâtiment, Services, etc.)
+  top: boolean;       // Artisan mis en avant
 }
 
+// Décorateur Injectable : permet d’injecter ce service à la racine de l’application
 @Injectable({
   providedIn: 'root'
 })
 export class ArtisansService {
-  private artisans: Artisan[] = [{/* données statiques ou chargées */ 
-		"id": "1",
-		"name": "Vallis Bellemare",
+
+  // Données statiques représentant une liste d’artisans simulée
+  private artisans: Artisan[] = [
+    // ... liste des objets artisans (extraits ci-dessous pour éviter surcharge)
+  {
+    "id": "1",
+    "name": "Vallis Bellemare",
 		"specialty": "Plombier",
-		"note": "4",
+		"note": 4,
 		"location": "Vienne",
 		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
 		"email":"v.bellemare@gmail.com",
@@ -34,7 +43,7 @@ export class ArtisansService {
 		"id": "2",
 		"name": "Amitee Lécuyer",
 		"specialty": "Couturier",
-		"note": "4.5",
+		"note": 4.5,
 		"location": "Annecy",
 		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
 		"email":"a.amitee@hotmail.com",
@@ -46,7 +55,7 @@ export class ArtisansService {
 		"id": "3",
 		"name": "Leala Dennis",
 		"specialty": "Coiffeur",
-		"note": "3.8",
+		"note": 3.8,
 		"location": "Chambéry",
 		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
 		"email":"l.dennos@hotmail.fr",
@@ -58,7 +67,7 @@ export class ArtisansService {
 		"id": "4",
 		"name": "Chocolaterie Labbé",
 		"specialty": "Chocolatier",
-		"note": "4.9",
+		"note": 4.9,
 		"location": "Grenoble",
 		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
 		"email":"chocolaterie-labbe@gmail.com",
@@ -70,7 +79,7 @@ export class ArtisansService {
 		"id": "5",
 		"name": "Claude Quinn",
 		"specialty": "Bijoutier",
-		"note": "4.2",
+		"note": 4.2,
 		"location": "Aix-les-bains",
 		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
 		"email":"claude.quinn@gmail.com",
@@ -82,7 +91,7 @@ export class ArtisansService {
 		"id": "6",
 		"name": "Valérie Laderoute",
 		"specialty": "Toiletteur",
-		"note": "4.5",
+		"note": 4.5,
 		"location": "Valence",
 		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
 		"email":"v-laredoute@gmail.com",
@@ -94,7 +103,7 @@ export class ArtisansService {
 		"id": "7",
 		"name": "Boutot & fils",
 		"specialty": "Menuisier",
-		"note": "4.7",
+		"note": 4.7,
 		"location": "Bourg-en-bresse",
 		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
 		"email":"boutot-menuiserie@gmail.com",
@@ -106,7 +115,7 @@ export class ArtisansService {
 		"id": "8",
 		"name": "CM Graphisme",
 		"specialty": "Webdesign",
-		"note": "4.4",
+		"note": 4.4,
 		"location": "Valence",
 		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
 		"email":"contact@cm-graphisme.com",
@@ -118,7 +127,7 @@ export class ArtisansService {
 		"id": "9",
 		"name": "Orville Salmons",
 		"specialty": "Chauffagiste",
-		"note": "5",
+		"note": 5,
 		"location": "Evian",
 		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
 		"email":"o-salmons@live.com",
@@ -130,7 +139,7 @@ export class ArtisansService {
 		"id": "10",
 		"name": "Au pain chaud",
 		"specialty": "Boulanger",
-		"note": "4.8",
+		"note": 4.8,
 		"location": "Montélimar",
 		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
 		"email":"aupainchaud@hotmail.com",
@@ -142,7 +151,7 @@ export class ArtisansService {
 		"id": "11",
 		"name": "Boucherie Dumont",
 		"specialty": "Boucher",
-		"note": "4.5",
+		"note": 4.5,
 		"location": "Lyon",
 		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
 		"email":"boucherie.dumond@gmail.com",
@@ -154,7 +163,7 @@ export class ArtisansService {
 		"id": "12",
 		"name": "Mont Blanc Eléctricité",
 		"specialty": "Electricien",
-		"note": "4.5",
+		"note": 4.5,
 		"location": "Chamonix",
 		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
 		"email":"contact@mont-blanc-electricite.com",
@@ -166,7 +175,7 @@ export class ArtisansService {
 		"id": "13",
 		"name": "Traiteur Truchon",
 		"specialty": "Traiteur",
-		"note": "4.1",
+		"note": 4.1,
 		"location": "Privas",
 		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
 		"email":"contact@truchon-traiteur.fr",
@@ -178,7 +187,7 @@ export class ArtisansService {
 		"id": "14",
 		"name": "Le monde des fleurs",
 		"specialty": "Fleuriste",
-		"note": "4.6",
+		"note": 4.6,
 		"location": "Annonay",
 		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
 		"email":"contact@le-monde-des-fleurs-annonay.fr",
@@ -190,7 +199,7 @@ export class ArtisansService {
 		"id": "15",
 		"name": "Royden Charbonneau",
 		"specialty": "Carrossier",
-		"note": "3.8",
+		"note": 3.8,
 		"location": "Saint-Priest",
 		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
 		"email":"r.charbonneau@gmail.com",
@@ -202,7 +211,7 @@ export class ArtisansService {
 		"id": "16",
 		"name": "Ernest Carignan",
 		"specialty": "Ferronier",
-		"note": "5",
+		"note": 5,
 		"location": "Le Puy-en-Velay",
 		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
 		"email":"e-carigan@hotmail.com",
@@ -214,27 +223,21 @@ export class ArtisansService {
 		"id": "17",
 		"name": "C'est sup'hair",
 		"specialty": "Coiffeur",
-		"note": "4.1",
+		"note": 4.1,
 		"location": "Romans-sur-Isère",
 		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
 		"email":"sup-hair@gmail.com",
 		"website":"https://sup-hair.fr",
 		"category":"Services",
 		"top": false
-	}];
-
-
-	getAll(): Observable<Artisan[]> {
-	  return of(this.artisans);
 	}
+  ];
 
-	getArtisanById(id: number): Observable<Artisan | undefined> {
-	  const artisan = this.artisans.find(a => a.id === id.toString());
-	  return of(artisan);
-	}
-
-	getCategories(artisans: Artisan[]): string[] {
-	  const categories = artisans.map(a => a.category);
-	  return Array.from(new Set(categories));
-	}
+  getArtisansByCategory(cat: string): Observable<Artisan[]> {
+    return of(this.artisans.filter(a => a.category === cat));
   }
+
+  getArtisanById(id: string): Observable<Artisan | undefined> {
+    return of(this.artisans.find(a => a.id === id));
+  }
+}

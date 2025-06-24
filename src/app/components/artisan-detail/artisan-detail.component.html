@@ -1,0 +1,17 @@
+<h1>{{ artisan?.name }}</h1>
+<p>⭐ {{ artisan?.note }} - {{ artisan?.specialty }} à {{ artisan?.location }}</p>
+
+<section>
+  <h2>À propos</h2>
+  <p>{{ artisan?.about }}</p>
+</section>
+
+<a *ngIf="artisan?.website" [href]="artisan?.website" target="_blank">Site web</a>
+
+<!-- Formulaire de contact -->
+<form [formGroup]="contactForm" (ngSubmit)="sendEmail()">
+  <input formControlName="name" placeholder="Votre nom">
+  <input formControlName="subject" placeholder="Objet">
+  <textarea formControlName="message" placeholder="Message"></textarea>
+  <button type="submit">Envoyer</button>
+</form>

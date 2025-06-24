@@ -1,0 +1,9 @@
+<select [(ngModel)]="selectedCategory">
+  <option value="">-- Sélectionne une catégorie --</option>
+  <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+</select>
+
+<div *ngFor="let artisan of artisans | categoryFilter: selectedCategory">
+  <h3>{{ artisan.name }}</h3>
+  <p>{{ artisan.category }}</p>
+</div>
