@@ -5,13 +5,12 @@ import { MentionsLegalesComponent } from './pages/mentions-legales/mentions-lega
 import { CguComponent } from './pages/cgu/cgu.component';
 import { ConfidentialiteComponent } from './pages/confidentialite/confidentialite.component';
 import { CookiesComponent } from './pages/cookies/cookies.component';
-import { ArtisanListComponent } from './components/artisan-list/artisan-list.component';
 import { ArtisanDetailComponent } from './components/artisan-detail/artisan-detail.component';
 
 
 export const routes: Routes = [
     { path: '', component: HomeComponent }, // Route d'accueil
-    { path: '', component: ArtisanListComponent },
+    { path: 'artisan', component: ArtisanDetailComponent },
     { path: 'artisan/:id', component: ArtisanDetailComponent },
     { path: 'mentions-legales', component: MentionsLegalesComponent },
     { path: 'cgu', component: CguComponent },
