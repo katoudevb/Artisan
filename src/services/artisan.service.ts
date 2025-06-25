@@ -1,245 +1,264 @@
-// Importation du décorateur Injectable pour rendre ce service disponible en injection de dépendances
 import { Injectable } from '@angular/core';
-
-// Importation d'utilitaires RxJS pour travailler avec des Observables
 import { Observable, of } from 'rxjs';
 
-// Définition de l'interface Artisan : décrit le modèle de données d'un artisan
-export interface Artisan {
+export interface artisan{
   id: string;
   name: string;
   specialty: string;
-  note: number;       
-  location: string;   
-  about: string;      
+  note: string;
+  location:string;
+  about: string;
   email: string;
-  website: string;
-  category: string;   
-  top: boolean;      
+  website?: string;
+  category: string;
+  top: boolean;
 }
 
-// Décorateur Injectable : permet d’injecter ce service à la racine de l’application
 @Injectable({
   providedIn: 'root'
 })
 export class ArtisansService {
-   artisan : any;
+  private artisans: artisan[]= [
+    {
+        id: "1",
+        name: "Vallis Bellemare" ,
+        specialty:  "Plombier" ,
+        note: "4",
+        location:  "Vienne",
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
+        email:"v.bellemare@gmail.com",
+        website:"https://plomberie-bellemare.com",
+        category:"Bâtiment",
+        top: false
+      },
+      {
+        id: "2",
+        name: "Amitee Lécuyer",
+        specialty: "Couturier",
+        note: "4.5",
+        location: "Annecy",
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
+        email:"a.amitee@hotmail.com",
+        website:"https://lecuyer-couture.com",
+        category:"Fabrication",
+        top: false
+      },
+      {
+        id: "3",
+        name: "Leala Dennis",
+        specialty: "Coiffeur",
+        note: "3.8",
+        location: "Chambéry",
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
+        email:"l.dennos@hotmail.fr",
+        website:"https://coiffure-leala-chambery.fr",
+        category:"Services",
+        top: false
+      },
+      {
+        id: "4",
+        name: "Chocolaterie Labbé",
+        specialty: "Chocolatier",
+        note: "4.9",
+        location: "Grenoble",
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
+        email:"chocolaterie-labbe@gmail.com",
+        website:"https://chocolaterie-labbe.fr",
+        category:"Alimentation",
+        top: true
+      },
+      {
+        id: "5",
+        name: "Claude Quinn",
+        specialty: "Bijoutier",
+        note: "4.2",
+        location: "Aix-les-bains",
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
+        email:"claude.quinn@gmail.com",
+        website:"",
+        category:"Fabrication",
+        top: false
+      },
+      {
+        id: "6",
+        name: "Valérie Laderoute",
+        specialty: "Toiletteur",
+        note: "4.5",
+        location: "Valence",
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
+        email:"v-laredoute@gmail.com",
+        website:"",
+        category:"Services",
+        top: false
+      },
+      {
+        id: "7",
+        name: "Boutot & fils",
+        specialty: "Menuisier",
+        note: "4.7",
+        location: "Bourg-en-bresse",
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
+        email:"boutot-menuiserie@gmail.com",
+        website:"https://boutot-menuiserie.com",
+        category:"Bâtiment",
+        top: false
+      },
+      {
+        id: "8",
+        name: "CM Graphisme",
+        specialty: "Webdesign",
+        note: "4.4",
+        location: "Valence",
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
+        email:"contact@cm-graphisme.com",
+        website:"https://cm-graphisme.com",
+        category:"Services",
+        top: true
+      },
+      {
+        id: "9",
+        name: "Orville Salmons",
+        specialty: "Chauffagiste",
+        note: "5",
+        location: "Evian",
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
+        email:"o-salmons@live.com",
+        website:"",
+        category:"Bâtiment",
+        top: false
+      },
+      {
+        id: "10",
+        name: "Au pain chaud",
+        specialty: "Boulanger",
+        note: "4.8",
+        location: "Montélimar",
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
+        email:"aupainchaud@hotmail.com",
+        website:"",
+        category:"Alimentation",
+        top: false
+      },
+      {
+        id: "11",
+        name: "Boucherie Dumont",
+        specialty: "Boucher",
+        note: "4.5",
+        location: "Lyon",
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
+        email:"boucherie.dumond@gmail.com",
+        website:"",
+        category:"Alimentation",
+        top: false
+      },
+      {
+        id: "12",
+        name: "Mont Blanc Eléctricité",
+        specialty: "Electricien",
+        note: "4.5",
+        location: "Chamonix",
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
+        email:"contact@mont-blanc-electricite.com",
+        website:"https://mont-blanc-electricite.com",
+        category:"Bâtiment",
+        top: false
+      },
+      {
+        id: "13",
+        name: "Traiteur Truchon",
+        specialty: "Traiteur",
+        note: "4.1",
+        location: "Privas",
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
+        email:"contact@truchon-traiteur.fr",
+        website:"https://truchon-traiteur.fr",
+        category:"Bâtiment",
+        top: false
+      },
+      {
+        id: "14",
+        name: "Le monde des fleurs",
+        specialty: "Fleuriste",
+        note: "4.6",
+        location: "Annonay",
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
+        email:"contact@le-monde-des-fleurs-annonay.fr",
+        website:"https://le-monde-des-fleurs-annonay.fr",
+        category:"Services",
+        top: false
+      },
+      {
+        id: "15",
+        name: "Royden Charbonneau",
+        specialty: "Carrossier",
+        note: "3.8",
+        location: "Saint-Priest",
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
+        email:"r.charbonneau@gmail.com",
+        website:"",
+        category:"Services",
+        top: false
+      },
+      {
+        id: "16",
+        name: "Ernest Carignan",
+        specialty: "Ferronier",
+        note: "5",
+        location: "Le Puy-en-Velay",
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
+        email:"e-carigan@hotmail.com",
+        website:"",
+        category:"Fabrication",
+        top: true
+      },
+      {
+        id: "17",
+        name: "C'est sup'hair",
+        specialty: "Coiffeur",
+        note: "4.1",
+        location: "Romans-sur-Isère",
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
+        email:"sup-hair@gmail.com",
+        website:"https://sup-hair.fr",
+        category:"Services",
+        top: false
+      }
+    ]
+    private ArtisanId: string | null = null;
+  constructor() { }
 
-constructor() { }
-
-  getArtisanById(id: number) {
-  return this.artisan.find((artisan: { id: number; }) => artisan.id === id);
-}
-  getArtisans(): Observable<Artisan[]> {
-    const artisans: Artisan[] = [
-    // ... liste des objets artisans (extraits ci-dessous pour éviter surcharge)
-  {
-    	"id": "1",
-    	"name": "Vallis Bellemare",
-		"specialty": "Plombier",
-		"note": 4,
-		"location": "Vienne",
-		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
-		"email":"v.bellemare@gmail.com",
-		"website":"https://plomberie-bellemare.com",
-		"category":"Bâtiment",
-		"top": false
-	},
-	{
-		"id": "2",
-		"name": "Amitee Lécuyer",
-		"specialty": "Couturier",
-		"note": 4.5,
-		"location": "Annecy",
-		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
-		"email":"a.amitee@hotmail.com",
-		"website":"https://lecuyer-couture.com",
-		"category":"Fabrication",
-		"top": false
-	},
-	{
-		"id": "3",
-		"name": "Leala Dennis",
-		"specialty": "Coiffeur",
-		"note": 3.8,
-		"location": "Chambéry",
-		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
-		"email":"l.dennos@hotmail.fr",
-		"website":"https://coiffure-leala-chambery.fr",
-		"category":"Services",
-		"top": false
-	},
-	{
-		"id": "4",
-		"name": "Chocolaterie Labbé",
-		"specialty": "Chocolatier",
-		"note": 4.9,
-		"location": "Grenoble",
-		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
-		"email":"chocolaterie-labbe@gmail.com",
-		"website":"https://chocolaterie-labbe.fr",
-		"category":"Alimentation",
-		"top": true
-	},
-	{
-		"id": "5",
-		"name": "Claude Quinn",
-		"specialty": "Bijoutier",
-		"note": 4.2,
-		"location": "Aix-les-bains",
-		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
-		"email":"claude.quinn@gmail.com",
-		"website":"",
-		"category":"Fabrication",
-		"top": false
-	},
-	{
-		"id": "6",
-		"name": "Valérie Laderoute",
-		"specialty": "Toiletteur",
-		"note": 4.5,
-		"location": "Valence",
-		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
-		"email":"v-laredoute@gmail.com",
-		"website":"",
-		"category":"Services",
-		"top": false
-	},
-	{
-		"id": "7",
-		"name": "Boutot & fils",
-		"specialty": "Menuisier",
-		"note": 4.7,
-		"location": "Bourg-en-bresse",
-		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
-		"email":"boutot-menuiserie@gmail.com",
-		"website":"https://boutot-menuiserie.com",
-		"category":"Bâtiment",
-		"top": false
-	},
-	{
-		"id": "8",
-		"name": "CM Graphisme",
-		"specialty": "Webdesign",
-		"note": 4.4,
-		"location": "Valence",
-		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
-		"email":"contact@cm-graphisme.com",
-		"website":"https://cm-graphisme.com",
-		"category":"Services",
-		"top": false
-	},
-	{
-		"id": "9",
-		"name": "Orville Salmons",
-		"specialty": "Chauffagiste",
-		"note": 5,
-		"location": "Evian",
-		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
-		"email":"o-salmons@live.com",
-		"website":"",
-		"category":"Bâtiment",
-		"top": true
-	},
-	{
-		"id": "10",
-		"name": "Au pain chaud",
-		"specialty": "Boulanger",
-		"note": 4.8,
-		"location": "Montélimar",
-		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
-		"email":"aupainchaud@hotmail.com",
-		"website":"",
-		"category":"Alimentation",
-		"top": true
-	},
-	{
-		"id": "11",
-		"name": "Boucherie Dumont",
-		"specialty": "Boucher",
-		"note": 4.5,
-		"location": "Lyon",
-		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
-		"email":"boucherie.dumond@gmail.com",
-		"website":"",
-		"category":"Alimentation",
-		"top": false
-	},
-	{
-		"id": "12",
-		"name": "Mont Blanc Eléctricité",
-		"specialty": "Electricien",
-		"note": 4.5,
-		"location": "Chamonix",
-		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
-		"email":"contact@mont-blanc-electricite.com",
-		"website":"https://mont-blanc-electricite.com",
-		"category":"Bâtiment",
-		"top": false
-	},
-	{
-		"id": "13",
-		"name": "Traiteur Truchon",
-		"specialty": "Traiteur",
-		"note": 4.1,
-		"location": "Privas",
-		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
-		"email":"contact@truchon-traiteur.fr",
-		"website":"https://truchon-traiteur.fr",
-		"category":"Bâtiment",
-		"top": false
-	},
-	{
-		"id": "14",
-		"name": "Le monde des fleurs",
-		"specialty": "Fleuriste",
-		"note": 4.6,
-		"location": "Annonay",
-		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
-		"email":"contact@le-monde-des-fleurs-annonay.fr",
-		"website":"https://le-monde-des-fleurs-annonay.fr",
-		"category":"Services",
-		"top": false
-	},
-	{
-		"id": "15",
-		"name": "Royden Charbonneau",
-		"specialty": "Carrossier",
-		"note": 3.8,
-		"location": "Saint-Priest",
-		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
-		"email":"r.charbonneau@gmail.com",
-		"website":"",
-		"category":"Services",
-		"top": false
-	},
-	{
-		"id": "16",
-		"name": "Ernest Carignan",
-		"specialty": "Ferronier",
-		"note": 5,
-		"location": "Le Puy-en-Velay",
-		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
-		"email":"e-carigan@hotmail.com",
-		"website":"",
-		"category":"Fabrication",
-		"top": false
-	},
-	{
-		"id": "17",
-		"name": "C'est sup'hair",
-		"specialty": "Coiffeur",
-		"note": 4.1,
-		"location": "Romans-sur-Isère",
-		"about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eleifend ante sem, id volutpat massa fermentum nec. Praesent volutpat scelerisque mauris, quis sollicitudin tellus sollicitudin. ",
-		"email":"sup-hair@gmail.com",
-		"website":"https://sup-hair.fr",
-		"category":"Services",
-		"top": false
-	}
-  ];
-
-    // Retourne un Observable contenant la liste des artisans
-	return of(artisans);
+  getArtisansByCategory(category: string): artisan[] {
+    const filteredArtisans = this.artisans.filter(artisan => artisan.category.toLowerCase()=== category.toLowerCase()
+  );
+  //retour un tableau vide si aucun artisans et trouver
+  return filteredArtisans;
+  }
+  getArtisans():
+  Observable<artisan[]> {
+    return of (this.artisans);
+  }
+  getArtisanId(id: string):
+  Observable< artisan | undefined > {
+    const artisan = this.artisans.find(a => a.id === id);
+    return of (artisan);
+  }
+  getTopArtisans(): artisan[] {
+    return this.artisans.filter(artisan => artisan.top) //filtre les artisans avec top = true
+    .sort((a, b) => parseFloat(b.note) - parseFloat(a.note)) //converti la note en nombre
+    .slice(0.3);
+  }
+  
+  //recherche
+  searchArtisans(query: string) {
+    query = query.toLowerCase();
+    return of ( this.artisans.filter (artisan =>
+      artisan.name.toLowerCase().includes(query) ||
+      artisan.specialty.toLowerCase().includes(query) ||
+      artisan.location.toLowerCase().includes(query)
+    )
+  );
+  }
+  setArtisanId(id: string) {
+    this.ArtisanId = id ;
   }
 }

@@ -1,18 +1,25 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ArtisansService } from '../../services/artisans-service.service';
+import { artisan } from '../../models/artisan.model';
 
 @Component({
   selector: 'app-batiment',
-  imports: [RouterModule, CommonModule],
+  imports: [],
   templateUrl: './batiment.component.html',
   styleUrl: './batiment.component.scss'
 })
-export class BatimentComponent {
-  artisans = [
-    {id: 1, name: 'Astérix', description: 'Figurine en résine, dimension de 20cm' , price: 29.99, imageUrl :'assets/images/Asterix.png'},
-    {id: 2, name: 'Obélix', description: 'Figurine en résine, dimension de 30cm' , price: 39.99, imageUrl :'assets/images/Obelix.png'},
-  ];
-  categoryFilter: string = '';
-  }
+export class BatimentComponent implements OnInit {
+  batimentArtisans: artisan[] = [];
 
+  constructor(private ArtisansServices: ArtisansService,
+    private router: Router ) { }
+  
+  ngOnInit(): void {
+    this.batimentArtisans = this.ArtisansServices.getArtisansByCategory('Bâtiment');
+  }
+  detailArtisan(artisanId: string) {
+    this.router.navigate(['/artisan', artisanId])
+  }
+}

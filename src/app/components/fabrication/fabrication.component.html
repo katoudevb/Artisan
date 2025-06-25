@@ -1,12 +1,12 @@
 <main>
     <section>
         <div class="container mt-5 mb-5">
-        <h1 class="text-center mb-4">Artisans du Bâtiment</h1>
+        <h1 class="text-center mb-4">Artisans de Fabrication</h1>
             <!-- Message si aucun artisan n'est trouvé -->
-            <div *ngIf="batimentArtisans.length === 0" class="alert alert-warning text-center"> Aucun artisan trouvé dans la catégorie Bâtiment. </div>
+            <div *ngIf="fabricationArtisans.length === 0" class="alert alert-warning text-center"> Aucun artisan trouvé dans la catégorie Bâtiment. </div>
                 <!-- Grille des artisans -->
-                <div *ngIf="batimentArtisans.length > 0 " class="row">
-                    <div class="col-12 col-md-6 col-lg-4 mb-5" *ngFor="let artisan of batimentArtisans">
+                <div *ngIf="fabricationArtisans.length > 0 " class="row">
+                    <div class="col-12 col-md-6 col-lg-4 mb-5" *ngFor="let artisan of fabricationArtisans">
                         <div class="card h-100">
                             <div class="card-body text-center">
                                 <h2 class="card-title">{{ artisan.name }}</h2>
