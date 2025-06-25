@@ -1,21 +1,66 @@
-<div class="container mt-4">
-  <h2 class="text-center mb-4">Nos Artisans</h2>
-  <div class="row">
-    <div class="col-md-4" *ngFor="let artisan of filteredArtisans">
-      <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title">{{ artisan.name }}</h5>
-            <p class="card-text"><strong>Spécialité:</strong> {{ artisan.specialty }}</p>
-            <p class="card-text"><strong>{{ artisan.note }}</strong></p>
-            <p class="card-text"><strong>Localisation:</strong> {{ artisan.location }}</p>
-            <p class="card-text">{{ artisan.about }}</p>
-            <p class="card-text"><strong>Email:</strong> <a href="mailto:{{ artisan.email }}">{{ artisan.email }}</a></p>
-            <p class="card-text"><strong>Site Web:</strong> <a href="{{ artisan.website }}" target="_blank">{{ artisan.website }}</a></p>
-            <p class="card-text"><strong>Catégorie:</strong> {{ artisan.category }}</p>
-          <a href="#" class="btn btn-primary">Voir le profil</a>
-          <a href="#" class="btn btn-secondary">Contacter</a>
+<main>
+    <div class=" container mt-4 mb-2" >
+        <div *ngIf="artisan; else noArtisan" class="details d-flex justify-content-center">
+            <div class="card text-center p-3 mb-2">
+                <div class="card-body">
+                    <h1 class="card-title">{{artisan.name}}</h1>
+                    <p class="card-text">Note : {{artisan.note}} <i class="fa-solid fa-star"></i></p>
+                    <p class="card-text">Spécialité : {{artisan.specialty}}</p>
+                    <p class="card-text">Localisation : {{artisan.location}}</p>
+                    <p class="text-start propos">A propos : {{artisan.about}}</p>
+                    <p *ngIf="artisan.website"> <i class="fa-solid fa-globe"></i><a [href]="artisan.website" target="_blank">{{artisan.website}}</a></p>
+                    <p *ngIf="!artisan.website">Aucun site web disponible pour cet artisan</p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
+
+        <!--template si l'artisan n'est pas trouver-->
+        <ng-template #noArtisan>
+            <div class="alert alert-warning" role="alert">
+                Artisan non trouvé.
+            </div>
+        </ng-template>
+
+        <!-- Formulaire de contact -->
+         <div class="formulaire d-flex justify-content-center mt-4">
+            <div class="card w-100 p-3 mb-2" style="max-width: 1080px;">
+                <h2 class="text-center">Formulaire de Contact</h2>
+                <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate>
+                    <!-- Champ Nom -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nom :</label>
+                        <input type="text" id="name" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls['name'].invalid }" />
+                        <div *ngIf="submitted && formControls['name'].invalid" class="invalid-feedback">
+                            <small *ngIf="formControls['name'].errors?.['required']">Le nom est requis.</small>
+                            <small *ngIf="formControls['name'].errors?.['minlength']">Le nom doit comporter au moins 3 caractères.</small>
+                    </div>
+                </div>
+                <!-- Champ Objet -->
+                 <div class="mb-3">
+                    <label for="subject" class="form-label">Objet :</label>
+                        <input type="text" id="subject" formControlName="subject" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls['subject'].invalid }" /> <div *ngIf="submitted && formControls['subject'].invalid" class="invalid-feedback">
+                            <small *ngIf="formControls['subject'].errors?.['required']">L'objet est requis.</small>
+                            <small *ngIf="formControls['subject'].errors?.['minlength']">L'objet doit comporter au moins 5 caractères.</small>
+                        </div>
+                    </div>
+                    <!-- Champ Message -->
+                     <div class="mb-3">
+                        <label for="message" class="form-label">Message :</label>
+                        <textarea id="message" formControlName="message" class="form-control" rows="4" [ngClass]="{ 'is-invalid': submitted && formControls['message'].invalid }" ></textarea>
+                        <div *ngIf="submitted && formControls['message'].invalid" class="invalid-feedback">
+                            <small *ngIf="formControls['message'].errors?.['required']">Le message est requis.</small>
+                            <small *ngIf="formControls['message'].errors?.['minlength']">Le message doit comporter au moins 10 caractères.</small>
+                        </div>
+                    </div>
+                    <!-- Bouton de soumission -->
+                     <div class="d-grid">
+                        <button type="submit" class="btn">Envoyer</button>
+                    </div>
+                </form>
+                <!-- Afficher les messages de succès ou d'erreur -->
+                 <div *ngIf="successMessage" class="alert alert-success mt-3 text-center">{{ successMessage }}</div>
+                 <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center">{{ errorMessage }}</div>
+                </div>
+            </div>
+        </div>
+    </main>

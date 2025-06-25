@@ -1,9 +1,21 @@
-<select [(ngModel)]="selectedCategory">
-  <option value="">-- Sélectionne une catégorie --</option>
-  <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
-</select>
-
-<div *ngFor="let artisan of artisans | categoryFilter: selectedCategory">
-  <h3>{{ artisan.name }}</h3>
-  <p>{{ artisan.category }}</p>
-</div>
+<main>
+    <section>
+        <div class="container mt-5 mb-5">
+        <h1 class="text-center mb-4">Nos artisans</h1>
+                <!-- Grille des artisans -->
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4 mb-5" *ngFor="let artisan of artisans">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{{ artisan.name }}</h5>
+                                <p class="card-text">Note: {{ artisan.note }} <i class="fa-solid fa-star"></i></p>
+                                <p class="card-text">Spécialité : {{ artisan.specialty }}</p>
+                                <p class="card-text">Localisation : {{artisan.location}}</p>
+                                <button (click)="viewDetails(artisan.id)" type="button" class="btn">En Savoir plus</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+</main>
