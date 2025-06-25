@@ -9,13 +9,13 @@ export interface Artisan {
   id: string;
   name: string;
   specialty: string;
-  note: number;       // Note moyenne sous forme de nombre (ex: 4.5)
-  location: string;   // Localisation géographique
-  about: string;      // Description ou biographie
+  note: number;       
+  location: string;   
+  about: string;      
   email: string;
   website: string;
-  category: string;   // Catégorie métier (Bâtiment, Services, etc.)
-  top: boolean;       // Artisan mis en avant
+  category: string;   
+  top: boolean;      
 }
 
 // Décorateur Injectable : permet d’injecter ce service à la racine de l’application
@@ -23,13 +23,19 @@ export interface Artisan {
   providedIn: 'root'
 })
 export class ArtisansService {
+   artisan : any;
 
-  // Données statiques représentant une liste d’artisans simulée
-  private artisans: Artisan[] = [
+constructor() { }
+
+  getArtisanById(id: number) {
+  return this.artisan.find((artisan: { id: number; }) => artisan.id === id);
+}
+  getArtisans(): Observable<Artisan[]> {
+    const artisans: Artisan[] = [
     // ... liste des objets artisans (extraits ci-dessous pour éviter surcharge)
   {
-    "id": "1",
-    "name": "Vallis Bellemare",
+    	"id": "1",
+    	"name": "Vallis Bellemare",
 		"specialty": "Plombier",
 		"note": 4,
 		"location": "Vienne",
@@ -233,11 +239,7 @@ export class ArtisansService {
 	}
   ];
 
-  getArtisansByCategory(cat: string): Observable<Artisan[]> {
-    return of(this.artisans.filter(a => a.category === cat));
-  }
-
-  getArtisanById(id: string): Observable<Artisan | undefined> {
-    return of(this.artisans.find(a => a.id === id));
+    // Retourne un Observable contenant la liste des artisans
+	return of(artisans);
   }
 }

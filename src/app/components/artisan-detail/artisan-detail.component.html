@@ -1,17 +1,21 @@
-<h1>{{ artisan?.name }}</h1>
-<p>⭐ {{ artisan?.note }} - {{ artisan?.specialty }} à {{ artisan?.location }}</p>
-
-<section>
-  <h2>À propos</h2>
-  <p>{{ artisan?.about }}</p>
-</section>
-
-<a *ngIf="artisan?.website" [href]="artisan?.website" target="_blank">Site web</a>
-
-<!-- Formulaire de contact -->
-<form [formGroup]="contactForm" (ngSubmit)="sendEmail()">
-  <input formControlName="name" placeholder="Votre nom">
-  <input formControlName="subject" placeholder="Objet">
-  <textarea formControlName="message" placeholder="Message"></textarea>
-  <button type="submit">Envoyer</button>
-</form>
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Nos Artisans</h2>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let artisan of filteredArtisans">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">{{ artisan.name }}</h5>
+            <p class="card-text"><strong>Spécialité:</strong> {{ artisan.specialty }}</p>
+            <p class="card-text"><strong>{{ artisan.note }}</strong></p>
+            <p class="card-text"><strong>Localisation:</strong> {{ artisan.location }}</p>
+            <p class="card-text">{{ artisan.about }}</p>
+            <p class="card-text"><strong>Email:</strong> <a href="mailto:{{ artisan.email }}">{{ artisan.email }}</a></p>
+            <p class="card-text"><strong>Site Web:</strong> <a href="{{ artisan.website }}" target="_blank">{{ artisan.website }}</a></p>
+            <p class="card-text"><strong>Catégorie:</strong> {{ artisan.category }}</p>
+          <a href="#" class="btn btn-primary">Voir le profil</a>
+          <a href="#" class="btn btn-secondary">Contacter</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
