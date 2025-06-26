@@ -1,24 +1,29 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ArtisanService } from '../../services/artisan-service.service';
-import { artisan } from '../../models/artisan.model';
+import { ArtisansService } from '../../../services/artisan.service';
+import { Artisan } from '../../models/artisan.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-alimentaire',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './alimentaire.component.html',
-  styleUrl: './alimentaire.component.scss'
+  styleUrls: ['./alimentaire.component.scss']
 })
 export class AlimentaireComponent  implements OnInit {
 
-  alimentationArtisans: artisan[]= [];
+  alimentationArtisans: Artisan[]= [];
 
-  constructor(private ArtisansServices: ArtisanService,
+  constructor(private artisanService: ArtisansService,
     private router: Router ) { }
 
   ngOnInit(): void {
-    this.alimentationArtisans = this.ArtisansServices.getArtisansByCategory('Alimentation');
+    this.alimentationArtisans = this.artisanService.getArtisansByCategory('Alimentation')
+      .map((artisan: any) => ({
+        ...artisan,
+        note: Number(artisan.note)
+      }));
   }
   
   detailArtisan(artisanId: string) {

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { ArtisansService } from '../../../services/artisan.service';
 import { Artisan } from '../../models/artisan.model';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-artisan-detail',
@@ -14,7 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class ArtisanDetailComponent implements OnInit{
 
-  artisan: artisan | undefined;
+  artisan: Artisan | undefined;
   //Formulaire
   contactForm: FormGroup;
   submitted = false;
@@ -36,8 +36,15 @@ export class ArtisanDetailComponent implements OnInit{
     ngOnInit() {
       const id = this.route.snapshot.paramMap.get('id');
       if (id) { 
-        this.ArtisanServices.getArtisanId(id).subscribe((data: artisan | undefined) => {
-          this.artisan = data;
+        this.ArtisanServices.getArtisanId(id).subscribe((data: any) => {
+          if (data) {
+            this.artisan = {
+              ...data,
+              note: typeof data.note === 'string' ? Number(data.note) : data.note
+            } as Artisan;
+          } else {
+            this.artisan = undefined;
+          }
         });
       }
     }
