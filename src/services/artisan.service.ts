@@ -266,7 +266,5 @@ export class ArtisansService {
   );
   }
 
-  // Setter pour enregistrer un id d'artisan (potentiellement utilisé pour la sélection ou le partage d'état)
-  setArtisanId(id: string) {
-  }
+
 }
