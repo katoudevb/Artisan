@@ -1,73 +1,121 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OnInit } from '@angular/core';
-import { ArtisansService } from '../../../services/artisan.service';
-import { Artisan } from '../../models/artisan.model';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component } from '@angular/core'; 
+// Import du décorateur Component pour définir un composant Angular.
+
+import { ActivatedRoute, Router } from '@angular/router'; 
+// ActivatedRoute permet de récupérer les paramètres de la route (ex: id dans URL).
+// Router permet de naviguer programmatiquement entre les routes.
+
+import { OnInit } from '@angular/core'; 
+// Interface OnInit pour exécuter du code au démarrage du composant.
+
+import { ArtisansService } from '../../../services/artisan.service'; 
+// Service custom pour récupérer les données des artisans (backend/API).
+
+import { Artisan } from '../../models/artisan.model'; 
+// Modèle de données pour un artisan.
+
+import { CommonModule } from '@angular/common'; 
+// Module Angular fournissant les directives de base (ngIf, ngFor...).
+
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'; 
+// FormBuilder aide à construire le formulaire réactif.
+// FormGroup représente le groupe de contrôles du formulaire.
+// Validators permet de définir des règles de validation.
 
 @Component({
-  selector: 'app-artisan-detail',
-  templateUrl: './artisan-detail.component.html',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule]
+  selector: 'app-artisan-detail', 
+  // Sélecteur HTML pour insérer ce composant dans une page.
+
+  templateUrl: './artisan-detail.component.html', 
+  // Template HTML associé.
+
+  standalone: true, 
+  // Ce composant est autonome (Angular 14+), pas besoin de le déclarer dans un NgModule.
+
+  imports: [CommonModule, ReactiveFormsModule] 
+  // Modules importés dans ce composant standalone pour utiliser leurs fonctionnalités.
 })
 export class ArtisanDetailComponent implements OnInit{
 
-  artisan: Artisan | undefined;
-  //Formulaire
-  contactForm: FormGroup;
-  submitted = false;
-  successMessage = '';
-  errorMessage = '';
+  artisan: Artisan | undefined; 
+  // Propriété qui contiendra l'artisan chargé depuis le service.
 
-  
+  contactForm: FormGroup; 
+  // Représente le formulaire réactif pour contacter l'artisan.
 
-  constructor(private route: ActivatedRoute,private router: Router,
-    private ArtisanServices: ArtisansService, private fb:FormBuilder) {
+  submitted = false; 
+  // Indicateur si le formulaire a été soumis (pour afficher erreurs).
 
-      //form
-      this.contactForm = this.fb.group({
-        name: ['',[Validators.required,Validators.minLength(3)]],
-        subject: ['',[Validators.required, Validators.minLength(5)]],
-        message: ['',[Validators.required, Validators.minLength(10)]]
+  successMessage = ''; 
+  // Message de succès après soumission.
+
+  errorMessage = ''; 
+  // Message d'erreur en cas de validation échouée.
+
+  constructor(
+    private route: ActivatedRoute, // Injection pour accéder à l'URL
+    private router: Router, // Injection pour navigation
+    private ArtisanServices: ArtisansService, // Injection du service artisans
+    private fb: FormBuilder // Injection du form builder pour formulaire
+  ) {
+    // Initialisation du formulaire avec des champs + validations
+    this.contactForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]], 
+      // champ "name" obligatoire et min 3 caractères
+      subject: ['', [Validators.required, Validators.minLength(5)]], 
+      // champ "subject" obligatoire et min 5 caractères
+      message: ['', [Validators.required, Validators.minLength(10)]]
+      // champ "message" obligatoire et min 10 caractères
+    });
+  }
+
+  ngOnInit() {
+    // Méthode exécutée à l'initialisation du composant
+    const id = this.route.snapshot.paramMap.get('id'); 
+    // Récupère l'id passé en paramètre d'URL
+
+    if (id) { 
+      // Si un id est présent, on récupère les données via le service
+      this.ArtisanServices.getArtisanId(id).subscribe((data: any) => {
+        if (data) {
+          // Si les données existent, on transforme la note en nombre (si besoin)
+          this.artisan = {
+            ...data,
+            note: typeof data.note === 'string' ? Number(data.note) : data.note
+          } as Artisan;
+        } else {
+          this.artisan = undefined; 
+          // Si pas de données, on met undefined (pas trouvé)
+        }
       });
     }
-    ngOnInit() {
-      const id = this.route.snapshot.paramMap.get('id');
-      if (id) { 
-        this.ArtisanServices.getArtisanId(id).subscribe((data: any) => {
-          if (data) {
-            this.artisan = {
-              ...data,
-              note: typeof data.note === 'string' ? Number(data.note) : data.note
-            } as Artisan;
-          } else {
-            this.artisan = undefined;
-          }
-        });
-      }
-    }
-    //button detail
-    viewDetails(id:string) {
-      this.router.navigate(['/artisan',id])
-    }
-    //form
-    onSubmit(): void {
-      this.submitted = true ;
-      //verifie si le formulaire est valide
-      if (this.contactForm.invalid) {
-        this.errorMessage = 'Veuillez remplir tous les champs correctement.';
-        return;
-      }
-      //simuler l'envoie dun mail
-      this.successMessage = 'Message envoyé avec succès';
-      this.errorMessage = '';
-      this.contactForm.reset();
-      this.submitted = false;
-    }
-    //get pour acceder facilement au formulaire du template 
-    get formControls() {
-      return this.contactForm.controls;
-    }
   }
+
+  // Méthode pour naviguer vers les détails d'un artisan (bouton)
+  viewDetails(id: string) {
+    this.router.navigate(['/artisan', id]); 
+    // Navigation programmée vers la route /artisan/:id
+  }
+
+  // Méthode appelée à la soumission du formulaire
+  onSubmit(): void {
+    this.submitted = true; // Indique que l'utilisateur a tenté d'envoyer le formulaire
+
+    if (this.contactForm.invalid) {
+      // Si formulaire invalide, on affiche un message d'erreur
+      this.errorMessage = 'Veuillez remplir tous les champs correctement.';
+      return; // Stop la fonction
+    }
+
+    // Simule un envoi de mail (ici aucune interaction réelle backend)
+    this.successMessage = 'Message envoyé avec succès'; 
+    this.errorMessage = '';
+    this.contactForm.reset(); // Réinitialise le formulaire
+    this.submitted = false; // Reset état soumis
+  }
+
+  // Getter pour accéder facilement aux contrôles du formulaire depuis le template
+  get formControls() {
+    return this.contactForm.controls;
+  }
+}

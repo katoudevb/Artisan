@@ -12,19 +12,30 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./batiment.component.scss']
 })
 export class BatimentComponent implements OnInit {
-  batimentArtisans: Artisan[] = [];
 
-  constructor(private ArtisansServices: ArtisansService,
-    private router: Router ) { }
-  
+  batimentArtisans: Artisan[] = [];
+  // Tableau qui stocke la liste des artisans filtrés par catégorie "Bâtiment"
+
+  constructor(
+    private ArtisansServices: ArtisansService,
+    // Injection du service pour récupérer les artisans
+
+    private router: Router
+    // Injection du routeur pour navigation
+  ) { }
+
   ngOnInit(): void {
-        this.batimentArtisans = this.ArtisansServices.getArtisansByCategory('Bâtiment')
-          .map((artisan: any) => ({
-            ...artisan,
-            note: Number(artisan.note)
-          }));
-      }
-      detailArtisan(artisanId: string) {
-        this.router.navigate(['/artisan', artisanId])
-      }
+    // Au démarrage du composant, on récupère la liste des artisans dans la catégorie "Bâtiment"
+    // La méthode getArtisansByCategory est supposée renvoyer un tableau filtré synchronement
+    this.batimentArtisans = this.ArtisansServices.getArtisansByCategory('Bâtiment')
+      .map((artisan: any) => ({
+        ...artisan,
+        note: Number(artisan.note) // Assure que la note est bien un nombre (casting)
+      }));
+  }
+
+  // Méthode appelée au clic sur un artisan pour naviguer vers sa page détail
+  detailArtisan(artisanId: string) {
+    this.router.navigate(['/artisan', artisanId]);
+  }
 }

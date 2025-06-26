@@ -1,23 +1,55 @@
 <main>
     <section>
+        <!-- Conteneur Bootstrap avec marges verticales -->
         <div class="container mt-5 mb-5">
-        <h1 class="text-center mb-4">Artisans Alimentaire</h1>
-            <!-- Message si aucun artisan n'est trouvé -->
-            <div *ngIf="alimentationArtisans.length === 0" class="alert alert-warning text-center"> Aucun artisan trouvé dans la catégorie Bâtiment. </div>
-                <!-- Grille des artisans -->
-                <div *ngIf="alimentationArtisans.length > 0 " class="row">
-                    <div class="col-12 col-md-6 col-lg-4 mb-5" *ngFor="let artisan of alimentationArtisans">
-                        <div class="card h-100">
-                            <div class="card-body text-center">
-                                <h2 class="card-title">{{ artisan.name }}</h2>
-                                <p class="card-text">Note: {{ artisan.note }} <i class="fa-solid fa-star"></i></p>
-                                <p class="card-text">Spécialité : {{ artisan.specialty }}</p>
-                                <p class="card-text">Localisation : {{artisan.location}}</p>
-                                <button (click)="detailArtisan(artisan.id)" type="button" class="btn">En Savoir plus</button>
-                            </div>
+        
+            <!-- Titre principal centré -->
+            <h1 class="text-center mb-4">Artisans Alimentaire</h1>
+            
+            <!-- Message d'alerte si aucun artisan n'est présent dans la liste alimentationArtisans -->
+            <div *ngIf="alimentationArtisans.length === 0" class="alert alert-warning text-center">
+                Aucun artisan trouvé dans la catégorie Bâtiment.
+            </div>
+
+            <!-- Affichage conditionnel de la grille si la liste contient au moins un artisan -->
+            <div *ngIf="alimentationArtisans.length > 0 " class="row">
+                
+                <!-- Boucle sur chaque artisan via *ngFor (directive structurelle Angular) -->
+                <div class="col-12 col-md-6 col-lg-4 mb-5" *ngFor="let artisan of alimentationArtisans">
+                    
+                    <!-- Carte Bootstrap avec hauteur égale à 100% (utile pour aligner les boutons) -->
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            
+                            <!-- Nom de l’artisan -->
+                            <h2 class="card-title">{{ artisan.name }}</h2>
+                            
+                            <!-- Note de l’artisan avec une icône étoile -->
+                            <p class="card-text">
+                                Note: {{ artisan.note }} <i class="fa-solid fa-star"></i>
+                            </p>
+                            
+                            <!-- Spécialité affichée dynamiquement -->
+                            <p class="card-text">
+                                Spécialité : {{ artisan.specialty }}
+                            </p>
+                            
+                            <!-- Localisation de l’artisan -->
+                            <p class="card-text">
+                                Localisation : {{ artisan.location }}
+                            </p>
+                            
+                            <!-- Bouton déclenchant une fonction pour afficher les détails de l’artisan -->
+                            <button (click)="detailArtisan(artisan.id)" type="button" class="btn">
+                                En Savoir plus
+                            </button>
                         </div>
                     </div>
                 </div>
+                <!-- Fin de la boucle *ngFor -->
             </div>
+            <!-- Fin du bloc conditionnel d'affichage des artisans -->
+        </div>
+        <!-- Fin du container -->
     </section>
 </main>

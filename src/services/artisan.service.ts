@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
+// Définition de l'interface 'artisan' représentant la structure des objets artisans dans l'application
 export interface artisan{
   id: string;
   name: string;
@@ -14,10 +15,12 @@ export interface artisan{
   top: boolean;
 }
 
+// Service injectable en scope racine, accessible globalement dans l'application
 @Injectable({
   providedIn: 'root'
 })
 export class ArtisansService {
+  // Tableau privé simulant une base de données locale d'artisans
   private artisans: artisan[]= [
     {
         id: "1",
@@ -224,28 +227,34 @@ export class ArtisansService {
         top: false
       }
     ]
+    // Stockage privé de l'id sélectionné (peut servir pour partager un état)
     private ArtisanId: string | null = null;
   constructor() { }
 
+  // Retourne un tableau d'artisans filtré par catégorie, insensible à la casse
   getArtisansByCategory(category: string): artisan[] {
     const filteredArtisans = this.artisans.filter(artisan => artisan.category.toLowerCase()=== category.toLowerCase()
   );
   //retour un tableau vide si aucun artisans et trouver
   return filteredArtisans;
   }
-  getArtisans():
-  Observable<artisan[]> {
+  
+  // Retourne un Observable émettant la liste complète des artisans (simulation asynchrone)
+  getArtisans(): Observable<artisan[]> {
     return of (this.artisans);
   }
-  getArtisanId(id: string):
-  Observable< artisan | undefined > {
+  
+  // Retourne un Observable émettant un artisan correspondant à un id donné, ou undefined si absent
+  getArtisanId(id: string): Observable<artisan | undefined> {
     const artisan = this.artisans.find(a => a.id === id);
-    return of (artisan);
+    return of(artisan);
   }
+
+  // Retourne un tableau des artisans "top" triés par note décroissante, limité à 3 premiers
   getTopArtisans(): artisan[] {
     return this.artisans.filter(artisan => artisan.top) //filtre les artisans avec top = true
     .sort((a, b) => parseFloat(b.note) - parseFloat(a.note)) //converti la note en nombre
-    .slice(0.3);
+    .slice(0, 3);
   }
   
   //recherche
@@ -258,7 +267,9 @@ export class ArtisansService {
     )
   );
   }
+
+  // Setter pour enregistrer un id d'artisan (potentiellement utilisé pour la sélection ou le partage d'état)
   setArtisanId(id: string) {
-    this.ArtisanId = id ;
+    this.ArtisanId = id;
   }
 }
