@@ -227,8 +227,6 @@ export class ArtisansService {
         top: false
       }
     ]
-    // Stockage privé de l'id sélectionné (peut servir pour partager un état)
-    private ArtisanId: string | null = null;
   constructor() { }
 
   // Retourne un tableau d'artisans filtré par catégorie, insensible à la casse
@@ -270,6 +268,5 @@ export class ArtisansService {
 
   // Setter pour enregistrer un id d'artisan (potentiellement utilisé pour la sélection ou le partage d'état)
   setArtisanId(id: string) {
-    this.ArtisanId = id;
   }
 }

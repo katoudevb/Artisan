@@ -1,29 +1,38 @@
 <main>
   <section>
     <div class="container mt-5 mb-5">
-      <h1 class="text-center mb-4">Artisans du Bâtiment</h1>
+      <!-- Titre principal centré -->
+      <h1 class="text-center mb-4">Artisans de Fabrication</h1>
 
-      <!-- Affiche un message d'alerte si la liste batimentArtisans est vide -->
-      <div *ngIf="batimentArtisans.length === 0" class="alert alert-warning text-center">
-        Aucun artisan trouvé dans la catégorie Bâtiment.
+      <!-- Sélecteur de catégorie -->
+      <select [(ngModel)]="selectedCategory" class="form-select mb-3">
+        <option value="">Toutes les catégories</option>
+        <option value="Bâtiment">Bâtiment</option>
+        <option value="Services">Services</option>
+        <option value="Alimentation">Alimentation</option>
+        <option value="Fabrication">Fabrication</option>
+      </select>
+
+      <!-- Message si aucun artisan trouvé -->
+      <div *ngIf="(batimentArtisans | categoryFilter:selectedCategory).length === 0" class="alert alert-warning text-center">
+        Aucun artisan trouvé dans cette catégorie.
       </div>
 
-      <!-- Affiche la grille des artisans seulement si la liste batimentArtisans n'est pas vide -->
-      <div *ngIf="batimentArtisans.length > 0" class="row">
-        <!-- Boucle Angular pour afficher une carte par artisan dans la liste filtrée -->
-        <div class="col-12 col-md-6 col-lg-4 mb-5" *ngFor="let artisan of batimentArtisans">
+      <!-- Affichage des artisans filtrés -->
+      <div *ngIf="(batimentArtisans | categoryFilter:selectedCategory).length > 0" class="row">
+        <div class="col-12 col-md-6 col-lg-4 mb-5"
+             *ngFor="let artisan of batimentArtisans | categoryFilter:selectedCategory">
           <div class="card h-100">
             <div class="card-body text-center">
-              <!-- Affiche le nom de l'artisan -->
               <h2 class="card-title">{{ artisan.name }}</h2>
-              <!-- Affiche la note de l'artisan avec une étoile -->
-              <p class="card-text">Note: {{ artisan.note }} <i class="fa-solid fa-star"></i></p>
-              <!-- Affiche la spécialité -->
+              <p class="card-text">
+                Note: {{ artisan.note }} <i class="fa-solid fa-star"></i>
+              </p>
               <p class="card-text">Spécialité : {{ artisan.specialty }}</p>
-              <!-- Affiche la localisation -->
               <p class="card-text">Localisation : {{ artisan.location }}</p>
-              <!-- Bouton pour afficher les détails de l'artisan en appelant la méthode detailArtisan avec son id -->
-              <button (click)="detailArtisan(artisan.id)" type="button" class="btn">En Savoir plus</button>
+              <button (click)="detailArtisan(artisan.id)" type="button" class="btn">
+                En Savoir plus
+              </button>
             </div>
           </div>
         </div>

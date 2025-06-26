@@ -1,23 +1,27 @@
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ArtisansService } from '../../../services/artisan.service';
-import { Artisan } from '../../models/artisan.model';
-import { CommonModule } from '@angular/common';
+// Importation des modules et services nécessaires
+import { Component } from '@angular/core';               // Décorateur pour définir un composant Angular
+import { OnInit } from '@angular/core';                  // Interface du cycle de vie Angular (hook ngOnInit)
+import { Router } from '@angular/router';                // Service de navigation pour rediriger vers une autre route
+import { ArtisansService } from '../../../services/artisan.service';  // Service métier pour manipuler les artisans
+import { Artisan } from '../../models/artisan.model';    // Modèle de données représentant un artisan
+import { CommonModule } from '@angular/common';          // Module Angular de base (ngIf, ngFor, etc.)
+import { FormsModule } from '@angular/forms';            // Module pour les formulaires Angular (ngModel)
+import { CategoryFilterPipe } from '../../../pipe/category-filter.pipe'; // Pipe pour filtrer les
 
 @Component({
   selector: 'app-batiment',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, CategoryFilterPipe],
   templateUrl: './batiment.component.html',
-  styleUrls: ['./batiment.component.scss']
+  styleUrls: ['./batiment.component.scss'],
 })
 export class BatimentComponent implements OnInit {
 
   batimentArtisans: Artisan[] = [];
   // Tableau qui stocke la liste des artisans filtrés par catégorie "Bâtiment"
-
+  selectedCategory: string = '';
+  
   constructor(
-    private ArtisansServices: ArtisansService,
+    private ArtisansService: ArtisansService,
     // Injection du service pour récupérer les artisans
 
     private router: Router
@@ -27,7 +31,7 @@ export class BatimentComponent implements OnInit {
   ngOnInit(): void {
     // Au démarrage du composant, on récupère la liste des artisans dans la catégorie "Bâtiment"
     // La méthode getArtisansByCategory est supposée renvoyer un tableau filtré synchronement
-    this.batimentArtisans = this.ArtisansServices.getArtisansByCategory('Bâtiment')
+    this.batimentArtisans = this.ArtisansService.getArtisansByCategory('Bâtiment')
       .map((artisan: any) => ({
         ...artisan,
         note: Number(artisan.note) // Assure que la note est bien un nombre (casting)

@@ -11,41 +11,31 @@ import { Artisan } from '../../models/artisan.model';
 
 // Module commun requis si le composant est standalone (directives Angular de base : ngIf, ngFor, etc.)
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { CategoryFilterPipe } from '../../../pipe/category-filter.pipe';
 
 @Component({
   selector: 'app-alimentaire',                          // Nom de la balise HTML du composant
-  imports: [CommonModule],         // Importation des modules nécessaires à ce composant (standalone component)
+  imports: [CommonModule,FormsModule,CategoryFilterPipe],         // Importation des modules nécessaires à ce composant (standalone component)
   templateUrl: './alimentaire.component.html',          // Fichier HTML associé (vue)
-  styleUrls: ['./alimentaire.component.scss']           // Fichier SCSS associé (style local)
+  styleUrls: ['./alimentaire.component.scss'],           // Fichier SCSS associé (style local)                         // Service à fournir (optionnel si déjà fourni au niveau supérieur)
 })
 export class AlimentaireComponent implements OnInit {    // Déclaration de la classe avec interface de cycle de vie
 
-  alimentationArtisans: Artisan[] = [];                  // Propriété contenant la liste des artisans filtrés par catégorie "Alimentation"
+  alimentationArtisans: Artisan[] = [];
+  selectedCategory: string = '';
 
-  // Constructeur avec injection des dépendances :
-  // - artisanService : service métier pour accéder aux données
-  // - router : service Angular pour la navigation entre les routes
-  constructor(
-    private artisanService: ArtisansService,
-    private router: Router
-  ) { }
-
-  // Méthode appelée automatiquement à l'initialisation du composant
+  constructor(private ArtisansService: ArtisansService,
+    private router: Router ) { }
+    
   ngOnInit(): void {
-    // Récupération des artisans de la catégorie "Alimentation" via le service
-    // On convertit explicitement les notes en nombre (au cas où elles seraient des chaînes)
-    this.alimentationArtisans = this.artisanService
-      .getArtisansByCategory('Alimentation')            // Appel du service pour filtrer par catégorie
-      .map((artisan: any) => ({                         // Transformation des objets artisans si besoin
-        ...artisan,                                     // On conserve toutes les propriétés
-        note: Number(artisan.note)                      // Conversion explicite de la note en number
+    this.alimentationArtisans = this.ArtisansService.getArtisansByCategory('Alimentation')
+      .map((artisan: any) => ({
+        ...artisan,
+        note: Number(artisan.note)
       }));
   }
-
-  // Méthode appelée au clic sur le bouton "En savoir plus"
-  // Redirige l'utilisateur vers la page de détails d’un artisan (ex: /artisan/123)
   detailArtisan(artisanId: string) {
-    this.router.navigate(['/artisan', artisanId]);      // Navigation vers une route paramétrée
+    this.router.navigate(['/artisan', artisanId])
   }
-
 }

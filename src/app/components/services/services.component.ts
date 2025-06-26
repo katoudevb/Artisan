@@ -4,11 +4,13 @@ import { Router } from '@angular/router';
 import { ArtisansService } from '../../../services/artisan.service';
 import { Artisan } from '../../models/artisan.model';
 import { CommonModule } from '@angular/common';
+import { CategoryFilterPipe } from '../../../pipe/category-filter.pipe';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-services',
-  imports: [CommonModule],
+  imports: [CommonModule, CategoryFilterPipe,FormsModule],
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.scss'],
   providers: [ArtisansService]
@@ -16,6 +18,7 @@ import { CommonModule } from '@angular/common';
 export class ServicesComponent implements OnInit {
   
   servicesArtisans: Artisan[] = [];
+selectedCategory: any;
 
   constructor(private ArtisansService: ArtisansService,
     private router: Router ) { }

@@ -14,7 +14,7 @@ import { AlimentaireComponent } from './components/alimentaire/alimentaire.compo
 
 export const routes: Routes = [
     { path: '', component: HomeComponent }, // Route d'accueil
-
+ 
     {path:"batiment", component: BatimentComponent},
     {path:"services", component: ServicesComponent},
     {path:"fabrication", component: FabricationComponent},
