@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 // Définition de l'interface 'artisan' représentant la structure des objets artisans dans l'application
-export interface artisan{
+export interface Artisan{
   id: string;
   name: string;
   specialty: string;
@@ -21,7 +21,7 @@ export interface artisan{
 })
 export class ArtisansService {
   // Tableau privé simulant une base de données locale d'artisans
-  private artisans: artisan[]= [
+  private artisans: Artisan[]= [
     {
         id: "1",
         name: "Vallis Bellemare" ,
@@ -228,7 +228,7 @@ export class ArtisansService {
       }
     ]
 
-  getArtisansByCategory(category: string): artisan[] {
+  getArtisansByCategory(category: string): Artisan[] {
   // Filtrage des artisans par catégorie, insensible à la casse
   const filteredArtisans = this.artisans.filter(
     artisan => artisan.category.toLowerCase() === category.toLowerCase()
@@ -237,18 +237,18 @@ export class ArtisansService {
   return filteredArtisans;
 }
 
-getArtisans(): Observable<artisan[]> {
+getArtisans(): Observable<Artisan[]> {
   // Retourne tous les artisans sous forme d'Observable (pattern RxJS pour services Angular)
   return of(this.artisans);
 }
 
-getArtisanId(id: string): Observable<artisan | undefined> {
+getArtisanId(id: string): Observable<Artisan | undefined> {
   // Recherche un artisan par ID, retourne undefined si non trouvé
   const artisan = this.artisans.find(a => a.id === id);
   return of(artisan); // Encapsulé dans un Observable pour cohérence avec les autres méthodes
 }
 
-getTopArtisans(): artisan[] {
+getTopArtisans(): Artisan[] {
   return this.artisans
     .filter(artisan => artisan.top) // Ne garde que les artisans marqués comme "top"
     .sort((a, b) => parseFloat(b.note) - parseFloat(a.note)) // Tri décroissant par note (convertie en float)
@@ -256,7 +256,7 @@ getTopArtisans(): artisan[] {
 }
 
   // Recherche par nom, spécialité ou localisation (insensible à la casse)
-searchArtisans(query: string): Observable<artisan[]> {
+searchArtisans(query: string): Observable<Artisan[]> {
   query = query.toLowerCase();
   return of(this.artisans.filter(artisan =>
     artisan.name.toLowerCase().includes(query) ||

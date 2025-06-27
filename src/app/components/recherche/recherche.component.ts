@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';              // Ajout de OnInit pour cycle de vie
 import { Router, ActivatedRoute } from '@angular/router';
-import { artisan } from '../../models/artisan.model';              // Import du modèle artisan
+import { Artisan } from '../../models/artisan.model';              // Import du modèle artisan
 import { ArtisansService } from '../../../services/artisan.service'; // Correction du chemin d'import du service
 import { CommonModule } from '@angular/common'; // Import du module commun pour les directives de base
 import { FormsModule } from '@angular/forms'; // Import des formulaires pour ngModel
@@ -15,9 +15,9 @@ import { FormsModule } from '@angular/forms'; // Import des formulaires pour ngM
 })
 export class RechercheComponent implements OnInit {
 
-  artisans: artisan[] = [];            // Tableau complet des artisans récupérés
+  artisans: Artisan[] = [];            // Tableau complet des artisans récupérés
   searchQuery: string = '';            // Requête de recherche extraite des query params
-  filteredArtisans: artisan[] = [];   // Résultats filtrés (ici identiques à artisans)
+  filteredArtisans: Artisan[] = [];   // Résultats filtrés (ici identiques à artisans)
   selectedCategory: string = ''; // Catégorie sélectionnée pour le filtrage (non utilisée dans ce composant, mais peut être utile pour l'avenir)
 
   // Injection des services nécessaires via le constructeur
@@ -30,6 +30,7 @@ export class RechercheComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['query'] || '';
+      console.log('Paramètre query reçu :', this.searchQuery);
       this.onSearch(this.searchQuery);
     });
   }
@@ -37,7 +38,7 @@ export class RechercheComponent implements OnInit {
   onSearch(query: string) {
     this.searchQuery = query;
     if (query) {
-      this.artisansService.searchArtisans(query).subscribe((data: artisan[]) => {
+      this.artisansService.searchArtisans(query).subscribe((data: Artisan[]) => {
         console.log('Résultats trouvés :', data); // Log
         this.filteredArtisans = data.map(item => ({
           ...item,

@@ -1,9 +1,4 @@
-<div class="container">
-  <h1 class="text-center">Résultats de la recherche pour "{{searchQuery}}"</h1>
-  <form (submit)="onSearch(searchInput.value); $event.preventDefault()">
-  <input #searchInput type="search" ... />
-  <button type="submit">Rechercher</button>
-</form>
+
 
   <div *ngIf="filteredArtisans.length > 0; else noResults">
   <div *ngFor="let artisan of filteredArtisans">

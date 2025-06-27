@@ -1,5 +1,5 @@
 //Définition du modèle Artisan
-export interface artisan {
+export interface Artisan {
   id: string;
   name: string;
   specialty: string;

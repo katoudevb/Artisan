@@ -11,7 +11,7 @@ import { OnInit } from '@angular/core';
 import { ArtisansService } from '../../../services/artisan.service'; 
 // Service custom pour récupérer les données des artisans (backend/API).
 
-import { artisan } from '../../models/artisan.model'; 
+import { Artisan } from '../../models/artisan.model'; 
 // Modèle de données pour un artisan.
 
 import { CommonModule } from '@angular/common'; 
@@ -37,7 +37,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class ArtisanDetailComponent implements OnInit{
 
-  artisan: artisan | undefined; 
+  artisan: Artisan | undefined; 
   // Propriété qui contiendra l'artisan chargé depuis le service.
 
   contactForm: FormGroup; 
@@ -82,7 +82,7 @@ export class ArtisanDetailComponent implements OnInit{
           this.artisan = {
             ...data,
             note: typeof data.note === 'string' ? Number(data.note) : data.note
-          } as artisan;
+          } as Artisan;
         } else {
           this.artisan = undefined; 
           // Si pas de données, on met undefined (pas trouvé)

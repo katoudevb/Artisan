@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ArtisansService } from '../../../services/artisan.service';
-import { artisan } from '../../models/artisan.model';
+import { Artisan } from '../../models/artisan.model';
 import { CommonModule } from '@angular/common';
 import { CategoryFilterPipe } from '../../../pipe/category-filter.pipe';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ServicesComponent implements OnInit {
   
-  servicesArtisans: artisan[] = [];
+  servicesArtisans: Artisan[] = [];
 selectedCategory: any;
 
   constructor(private ArtisansService: ArtisansService,
@@ -25,9 +25,9 @@ selectedCategory: any;
     
   ngOnInit(): void {
     this.servicesArtisans = this.ArtisansService.getArtisansByCategory('Services')
-      .map((artisan: any) => ({
-        ...artisan,
-        note: Number(artisan.note)
+      .map((Artisan: any) => ({
+        ...Artisan,
+        note: Number(Artisan.note)
       }));
   }
   detailArtisan(artisanId: string) {

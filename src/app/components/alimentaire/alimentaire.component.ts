@@ -7,7 +7,7 @@ import { Router } from '@angular/router';                // Permet de naviguer e
 import { ArtisansService } from '../../../services/artisan.service';
 
 // Importation du modèle Artisan pour typage strict et IntelliSense
-import { artisan } from '../../models/artisan.model';
+import { Artisan } from '../../models/artisan.model';
 
 // Module commun requis si le composant est standalone (directives Angular de base : ngIf, ngFor, etc.)
 import { CommonModule } from '@angular/common';
@@ -22,7 +22,7 @@ import { CategoryFilterPipe } from '../../../pipe/category-filter.pipe';
 })
 export class AlimentaireComponent implements OnInit {    // Déclaration de la classe avec interface de cycle de vie
 
-  alimentationArtisans: artisan[] = [];
+  alimentationArtisans: Artisan[] = [];
   selectedCategory: string = '';
 
   constructor(private ArtisansService: ArtisansService,
@@ -30,9 +30,9 @@ export class AlimentaireComponent implements OnInit {    // Déclaration de la c
     
   ngOnInit(): void {
     this.alimentationArtisans = this.ArtisansService.getArtisansByCategory('Alimentation')
-      .map((artisan: any) => ({
-        ...artisan,
-        note: Number(artisan.note)
+      .map((Artisan: any) => ({
+        ...Artisan,
+        note: Number(Artisan.note)
       }));
   }
   detailArtisan(artisanId: string) {
