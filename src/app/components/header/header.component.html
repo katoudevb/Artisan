@@ -20,17 +20,11 @@
 
     <!-- Barre de recherche (desktop) -->
     <form class="d-none d-lg-flex" (submit)="onSearch(searchInput.value); $event.preventDefault()">
-      <input
-        #searchInput
-        class="form-control me-2"
-        type="search"
-        placeholder="Rechercher un artisan..."
-        aria-label="Rechercher un artisan"
-      />
-      <button class="btn btn-outline-primary" type="submit">
-        <i class="bi bi-search"></i>
-      </button>
-    </form>
+  <input #searchInput class="form-control me-2" type="search" placeholder="Rechercher un artisan..." aria-label="Rechercher un artisan" />
+  <button class="btn btn-outline-primary" type="submit">
+    <i class="bi bi-search"></i>
+  </button>
+</form>
 
     <!-- Bouton menu burger (mobile) -->
     <button

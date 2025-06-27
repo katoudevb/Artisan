@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ArtisansService } from '../../../services/artisan.service';
-import { Artisan } from '../../models/artisan.model';
+import { artisan } from '../../models/artisan.model';
 import { CommonModule } from '@angular/common';
 import { CategoryFilterPipe } from '../../../pipe/category-filter.pipe';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ServicesComponent implements OnInit {
   
-  servicesArtisans: Artisan[] = [];
+  servicesArtisans: artisan[] = [];
 selectedCategory: any;
 
   constructor(private ArtisansService: ArtisansService,

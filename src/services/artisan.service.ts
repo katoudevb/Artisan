@@ -10,7 +10,7 @@ export interface artisan{
   location:string;
   about: string;
   email: string;
-  website?: string;
+  website: string;
   category: string;
   top: boolean;
 }
@@ -255,13 +255,12 @@ getTopArtisans(): artisan[] {
     .slice(0, 3); // Sélectionne les 3 meilleurs
 }
 
-searchArtisans(query: string) {
   // Recherche par nom, spécialité ou localisation (insensible à la casse)
+searchArtisans(query: string): Observable<artisan[]> {
   query = query.toLowerCase();
-
   return of(this.artisans.filter(artisan =>
     artisan.name.toLowerCase().includes(query) ||
     artisan.specialty.toLowerCase().includes(query) ||
     artisan.location.toLowerCase().includes(query)
   ));
-}
+}};

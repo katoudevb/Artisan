@@ -3,7 +3,7 @@ import { Component } from '@angular/core';               // Décorateur pour dé
 import { OnInit } from '@angular/core';                  // Interface du cycle de vie Angular (hook ngOnInit)
 import { Router } from '@angular/router';                // Service de navigation pour rediriger vers une autre route
 import { ArtisansService } from '../../../services/artisan.service';  // Service métier pour manipuler les artisans
-import { Artisan } from '../../models/artisan.model';    // Modèle de données représentant un artisan
+import { artisan } from '../../models/artisan.model';    // Modèle de données représentant un artisan
 import { CommonModule } from '@angular/common';          // Module Angular de base (ngIf, ngFor, etc.)
 import { FormsModule } from '@angular/forms';            // Module pour les formulaires Angular (ngModel)
 import { CategoryFilterPipe } from '../../../pipe/category-filter.pipe'; // Pipe pour filtrer les
@@ -16,7 +16,7 @@ import { CategoryFilterPipe } from '../../../pipe/category-filter.pipe'; // Pipe
 })
 export class BatimentComponent implements OnInit {
 
-batimentArtisans: Artisan[] = [];
+batimentArtisans: artisan[] = [];
 selectedCategory: string = '';
   
   constructor(

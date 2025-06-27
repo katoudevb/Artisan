@@ -1,9 +1,9 @@
 //Définition du modèle Artisan
-export interface Artisan {
+export interface artisan {
   id: string;
   name: string;
   specialty: string;
-  note: number;       
+  note: number | string;      
   location: string;   
   about: string;      
   email: string;

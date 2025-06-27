@@ -10,10 +10,13 @@ import { BatimentComponent } from './components/batiment/batiment.component';
 import { ServicesComponent } from './components/services/services.component';
 import { FabricationComponent } from './components/fabrication/fabrication.component';
 import { AlimentaireComponent } from './components/alimentaire/alimentaire.component';
+import { RechercheComponent } from './components/recherche/recherche.component'
 
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent }, // Route d'accueil
+    {path: '', component: HomeComponent }, // Route d'accueil
+
+    {path: 'recherche', component: RechercheComponent },
  
     {path:"batiment", component: BatimentComponent},
     {path:"services", component: ServicesComponent},

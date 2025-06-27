@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Artisan } from '../app/models/artisan.model'; 
+import { artisan } from '../app/models/artisan.model'; 
 
 @Pipe({
   name: 'categoryFilter', // Nom de la pipe utilisée dans les templates (ex: artisans | categoryFilter:'menuiserie')
@@ -7,7 +7,7 @@ import { Artisan } from '../app/models/artisan.model';
 })
 export class CategoryFilterPipe implements PipeTransform { // Implémente l'interface nécessaire à toute pipe personnalisée
 
-  transform(artisans: Artisan[], category: string): Artisan[] { // Méthode exécutée lors de l'appel de la pipe
+  transform(artisans: artisan[], category: string): artisan[] { // Méthode exécutée lors de l'appel de la pipe
     if (!category || category === 'all') { // Cas où aucune catégorie n’est précisée ou si "all" est sélectionné
       return artisans; // On retourne la liste complète sans filtrage
     }
