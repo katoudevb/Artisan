@@ -227,42 +227,41 @@ export class ArtisansService {
         top: false
       }
     ]
-  constructor() { }
 
-  // Retourne un tableau d'artisans filtré par catégorie, insensible à la casse
   getArtisansByCategory(category: string): artisan[] {
-    const filteredArtisans = this.artisans.filter(artisan => artisan.category.toLowerCase()=== category.toLowerCase()
+  // Filtrage des artisans par catégorie, insensible à la casse
+  const filteredArtisans = this.artisans.filter(
+    artisan => artisan.category.toLowerCase() === category.toLowerCase()
   );
-  //retour un tableau vide si aucun artisans et trouver
-  return filteredArtisans;
-  }
-  
-  // Retourne un Observable émettant la liste complète des artisans (simulation asynchrone)
-  getArtisans(): Observable<artisan[]> {
-    return of (this.artisans);
-  }
-  
-  // Retourne un Observable émettant un artisan correspondant à un id donné, ou undefined si absent
-  getArtisanId(id: string): Observable<artisan | undefined> {
-    const artisan = this.artisans.find(a => a.id === id);
-    return of(artisan);
-  }
 
-  // Retourne un tableau des artisans "top" triés par note décroissante, limité à 3 premiers
-  getTopArtisans(): artisan[] {
-    return this.artisans.filter(artisan => artisan.top) //filtre les artisans avec top = true
-    .sort((a, b) => parseFloat(b.note) - parseFloat(a.note)) //converti la note en nombre
-    .slice(0, 3);
-  }
-  
-  //recherche
-  searchArtisans(query: string) {
-    query = query.toLowerCase();
-    return of ( this.artisans.filter (artisan =>
-      artisan.name.toLowerCase().includes(query) ||
-      artisan.specialty.toLowerCase().includes(query) ||
-      artisan.location.toLowerCase().includes(query)
-    )
-  );
-  }
+  return filteredArtisans;
+}
+
+getArtisans(): Observable<artisan[]> {
+  // Retourne tous les artisans sous forme d'Observable (pattern RxJS pour services Angular)
+  return of(this.artisans);
+}
+
+getArtisanId(id: string): Observable<artisan | undefined> {
+  // Recherche un artisan par ID, retourne undefined si non trouvé
+  const artisan = this.artisans.find(a => a.id === id);
+  return of(artisan); // Encapsulé dans un Observable pour cohérence avec les autres méthodes
+}
+
+getTopArtisans(): artisan[] {
+  return this.artisans
+    .filter(artisan => artisan.top) // Ne garde que les artisans marqués comme "top"
+    .sort((a, b) => parseFloat(b.note) - parseFloat(a.note)) // Tri décroissant par note (convertie en float)
+    .slice(0, 3); // Sélectionne les 3 meilleurs
+}
+
+searchArtisans(query: string) {
+  // Recherche par nom, spécialité ou localisation (insensible à la casse)
+  query = query.toLowerCase();
+
+  return of(this.artisans.filter(artisan =>
+    artisan.name.toLowerCase().includes(query) ||
+    artisan.specialty.toLowerCase().includes(query) ||
+    artisan.location.toLowerCase().includes(query)
+  ));
 }
