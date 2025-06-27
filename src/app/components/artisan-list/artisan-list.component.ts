@@ -1,33 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-// Import du décorateur Component pour définir un composant Angular
-
-import { artisan } from '../../../services/artisan.service';
-// Import du modèle Artisan (typage des données)
+import { Artisan } from '../../../services/artisan.service';
 import { ArtisansService } from '../../../services/artisan.service';
-// Import du service pour récupérer les artisans
 import { Router } from '@angular/router';
-// Import du Router Angular pour la navigation
-
 import { CommonModule } from '@angular/common';
-// Module Angular avec directives de base (ngIf, ngFor...)
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// Modules pour gérer les formulaires (template-driven et réactifs)
+
 
 
 @Component({
   selector: 'app-artisan-list', 
-  // Sélecteur HTML pour utiliser ce composant dans les templates
-
   imports: [CommonModule, FormsModule, ReactiveFormsModule], 
-  // Modules et pipes utilisés dans ce composant standalone
-
   templateUrl: './artisan-list.component.html' 
-  // Fichier HTML associé au template
 })
 export class ArtisanListComponent implements OnInit {
 
-  artisans: artisan[] = []; 
+  artisans: Artisan[] = []; 
   // Tableau d'artisans qui sera alimenté via un service (initialement vide)
 
   selectedCategory: string = ''; 
@@ -46,7 +33,7 @@ export class ArtisanListComponent implements OnInit {
 
   ngOnInit(): void {
     // Au chargement du composant, on récupère la liste des artisans via le service
-    this.ArtisansDataServices.getArtisans().subscribe((data: artisan[]) => {
+    this.ArtisansDataServices.getArtisans().subscribe((data: Artisan[]) => {
       this.artisans = data; 
       // Remplissage du tableau avec les données reçues (Observable)
     });

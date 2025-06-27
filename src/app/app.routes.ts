@@ -14,22 +14,28 @@ import { RechercheComponent } from './components/recherche/recherche.component'
 
 
 export const routes: Routes = [
-    {path: '', component: HomeComponent }, // Route d'accueil
+    // Route racine ("/") : chargement du composant de la page d'accueil
+    { path: '', component: HomeComponent }, 
 
-    {path: 'recherche', component: RechercheComponent },
- 
-    {path:"batiment", component: BatimentComponent},
-    {path:"services", component: ServicesComponent},
-    {path:"fabrication", component: FabricationComponent},
-    {path:"alimentaire", component: AlimentaireComponent},
+    // Route vers le moteur de recherche
+    { path: 'recherche', component: RechercheComponent },
 
-    { path: 'artisan', component: ArtisanDetailComponent },
-    { path: 'artisan/:id', component: ArtisanDetailComponent },
+    // Routes vers les catégories métiers (affichage par type d’activité)
+    { path: 'batiment', component: BatimentComponent },
+    { path: 'services', component: ServicesComponent },
+    { path: 'fabrication', component: FabricationComponent },
+    { path: 'alimentaire', component: AlimentaireComponent }, // ⚠️ Incohérence avec la propriété `category: "Alimentation"` dans les artisans. Uniformiser l'orthographe.
 
+    // Routes vers le composant de détail d’un artisan
+    { path: 'artisan', component: ArtisanDetailComponent },         // route statique
+    { path: 'artisan/:id', component: ArtisanDetailComponent },     // route dynamique avec paramètre `id`
+
+    // Pages statiques légales
     { path: 'mentions-legales', component: MentionsLegalesComponent },
     { path: 'cgu', component: CguComponent },
     { path: 'confidentialite', component: ConfidentialiteComponent },
     { path: 'cookies', component: CookiesComponent },
 
-    { path: '**', component: NotFoundComponent } // Page 404
+    // Wildcard : route de secours pour les chemins inconnus (404)
+    { path: '**', component: NotFoundComponent }
 ];

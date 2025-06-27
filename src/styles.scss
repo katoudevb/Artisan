@@ -1,18 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @font-face {
-  font-family: 'GraphikXCondensed';
-  src: url('/src/app/assets/fonts/GraphikXCondensed-Thin-Trial.woff2') format('woff2'),
-       url('/src/app/assets/fonts/GraphikXCondensed-Thin-Trial.woff') format('woff'),
-       url('/src/app/assets/fonts/GraphikXCondensed-Thin-Trial.otf') format('opentype');
+  font-family: 'GraphikCompact';
+  src: url('../src/assets/fonts/GraphikCompact-Thin-Trial.woff2') format('woff2'),
+       url('../src/assets/fonts/GraphikCompact-Thin-Trial.woff') format('woff'),
+       url('../src/assets/fonts/GraphikCompact-Thin-Trial.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'GraphikXXCondensed';
-  src: url('/src/app/assets/fonts/GraphikXXCondensed-Thin-Trial.woff2') format('woff2'),
-       url('/src/app/assets/fonts/GraphikXXCondensed-Bold-Trial.woff') format('woff'),
-       url('/src/app/assets/fonts/GraphikXXCondensed-Bold-Trial.otf') format('opentype');
+  font-family: 'GraphikCompact';
+  src: url('../src/assets/fonts/GraphikCompact-Light-Trial.woff2') format('woff2'),
+       url('../src/assets/fonts/GraphikCompact-Light-Trial.woff') format('woff'),
+       url('../src/assets/fonts/GraphikCompact-Light-Trial.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }

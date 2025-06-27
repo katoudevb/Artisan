@@ -228,39 +228,40 @@ export class ArtisansService {
       }
     ]
 
+ // Récupère tous les artisans d’une certaine catégorie (sans tenir compte de la casse)
   getArtisansByCategory(category: string): Artisan[] {
-  // Filtrage des artisans par catégorie, insensible à la casse
-  const filteredArtisans = this.artisans.filter(
-    artisan => artisan.category.toLowerCase() === category.toLowerCase()
-  );
+    const filteredArtisans = this.artisans.filter(
+      artisan => artisan.category.toLowerCase() === category.toLowerCase()
+    );
+    return filteredArtisans;
+  }
 
-  return filteredArtisans;
-}
+  // Retourne tous les artisans sous forme d’Observable (conforme aux pratiques Angular/RxJS)
+  getArtisans(): Observable<Artisan[]> {
+    return of(this.artisans);
+  }
 
-getArtisans(): Observable<Artisan[]> {
-  // Retourne tous les artisans sous forme d'Observable (pattern RxJS pour services Angular)
-  return of(this.artisans);
-}
+  // Recherche un artisan par ID (retourne undefined si aucun match)
+  getArtisanId(id: string): Observable<Artisan | undefined> {
+    const artisan = this.artisans.find(a => a.id === id);
+    return of(artisan); // Encapsule le résultat dans un Observable
+  }
 
-getArtisanId(id: string): Observable<Artisan | undefined> {
-  // Recherche un artisan par ID, retourne undefined si non trouvé
-  const artisan = this.artisans.find(a => a.id === id);
-  return of(artisan); // Encapsulé dans un Observable pour cohérence avec les autres méthodes
-}
+  // Retourne les 3 meilleurs artisans marqués "top", triés par note décroissante
+  getTopArtisans(): Artisan[] {
+    return this.artisans
+      .filter(artisan => artisan.top) // Ne garde que ceux avec `top: true`
+      .sort((a, b) => parseFloat(b.note) - parseFloat(a.note)) // ⚠️ Utilisation de parseFloat car note est un string
+      .slice(0, 3); // Limite à 3 résultats
+  }
 
-getTopArtisans(): Artisan[] {
-  return this.artisans
-    .filter(artisan => artisan.top) // Ne garde que les artisans marqués comme "top"
-    .sort((a, b) => parseFloat(b.note) - parseFloat(a.note)) // Tri décroissant par note (convertie en float)
-    .slice(0, 3); // Sélectionne les 3 meilleurs
-}
-
-  // Recherche par nom, spécialité ou localisation (insensible à la casse)
-searchArtisans(query: string): Observable<Artisan[]> {
-  query = query.toLowerCase();
-  return of(this.artisans.filter(artisan =>
-    artisan.name.toLowerCase().includes(query) ||
-    artisan.specialty.toLowerCase().includes(query) ||
-    artisan.location.toLowerCase().includes(query)
-  ));
-}};
+  // Recherche d’artisans via leur nom, spécialité ou localisation (recherche insensible à la casse)
+  searchArtisans(query: string): Observable<Artisan[]> {
+    query = query.toLowerCase(); // Normalisation de la requête
+    return of(this.artisans.filter(artisan =>
+      artisan.name.toLowerCase().includes(query) ||
+      artisan.specialty.toLowerCase().includes(query) ||
+      artisan.location.toLowerCase().includes(query)
+    ));
+  }
+};

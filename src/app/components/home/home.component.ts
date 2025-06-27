@@ -12,10 +12,10 @@ export class HomeComponent {
   // Propriété publique représentant la liste des artisans mis en avant ce mois-ci
   artisansDuMois = [
     {
-      nom: "Boulange&Moi",          // Nom de l'artisan
-      specialite: "Boulanger",      // Spécialité métier
-      localisation: "Paris",        // Localisation géographique
-      note: 4                      // Note sur 5 (sera utilisée pour l'affichage des étoiles)
+      nom: "Boulange&Moi",          
+      specialite: "Boulanger",      
+      localisation: "Paris",        
+      note: 4                      
     },
     {
       nom: "MaçonneRire",

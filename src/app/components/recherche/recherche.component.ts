@@ -27,31 +27,39 @@ export class RechercheComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.searchQuery = params['query'] || '';
-      console.log('Paramètre query reçu :', this.searchQuery);
-      this.onSearch(this.searchQuery);
+  // ngOnInit : au démarrage du composant, on s'abonne aux paramètres de requête de l'URL.
+// Dès qu'un paramètre 'query' est détecté, on le récupère ou on initialise à une chaîne vide,
+// puis on lance la recherche avec cette valeur.
+ngOnInit(): void {
+  this.route.queryParams.subscribe(params => {
+    this.searchQuery = params['query'] || '';
+    this.onSearch(this.searchQuery);
+  });
+}
+
+// Méthode de recherche qui met à jour la variable searchQuery avec la requête.
+// Si la requête est non vide, on appelle le service artisans pour récupérer les données.
+// On transforme ensuite les données reçues en s'assurant que la note est bien un nombre
+// et que le site web existe, sinon on met une chaîne vide.
+// Sinon, on vide la liste filtrée.
+onSearch(query: string) {
+  this.searchQuery = query;
+  if (query) {
+    this.artisansService.searchArtisans(query).subscribe((data: Artisan[]) => {
+      console.log('Résultats trouvés :', data); // Debug
+      this.filteredArtisans = data.map(item => ({
+        ...item,
+        note: Number(item.note),
+        website: item.website !== undefined ? item.website : ''
+      }));
     });
+  } else {
+    this.filteredArtisans = [];
   }
+}
 
-  onSearch(query: string) {
-    this.searchQuery = query;
-    if (query) {
-      this.artisansService.searchArtisans(query).subscribe((data: Artisan[]) => {
-        console.log('Résultats trouvés :', data); // Log
-        this.filteredArtisans = data.map(item => ({
-          ...item,
-          note: Number(item.note),
-          website: item.website !== undefined ? item.website : ''
-        }));
-      });
-    } else {
-      this.filteredArtisans = [];
-    }
-  }
-
-  viewsDetails(id: string): void {
-    this.router.navigate(['/artisan', id]);
-  }
+// Navigation vers la page détail d’un artisan via son identifiant.
+viewsDetails(id: string): void {
+  this.router.navigate(['/artisan', id]);
+}
 }

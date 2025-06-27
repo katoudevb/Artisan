@@ -1,6 +1,4 @@
-
-
-  <div *ngIf="filteredArtisans.length > 0; else noResults">
+<div *ngIf="filteredArtisans.length > 0; else noResults">
   <div *ngFor="let artisan of filteredArtisans">
     <!-- Affichage de l'artisan -->
     <h5>{{ artisan.name }}</h5>

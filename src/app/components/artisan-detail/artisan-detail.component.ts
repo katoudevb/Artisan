@@ -15,27 +15,14 @@ import { Artisan } from '../../models/artisan.model';
 // Modèle de données pour un artisan.
 
 import { CommonModule } from '@angular/common'; 
-// Module Angular fournissant les directives de base (ngIf, ngFor...).
-
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'; 
 import { HttpClient, HttpClientModule} from '@angular/common/http';
 
-// FormBuilder aide à construire le formulaire réactif.
-// FormGroup représente le groupe de contrôles du formulaire.
-// Validators permet de définir des règles de validation.
-
 @Component({
   selector: 'app-artisan-detail', 
-  // Sélecteur HTML pour insérer ce composant dans une page.
-
   templateUrl: './artisan-detail.component.html', 
-  // Template HTML associé.
-
   standalone: true, 
-  // Ce composant est autonome (Angular 14+), pas besoin de le déclarer dans un NgModule.
-
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule] 
-  // Modules importés dans ce composant standalone pour utiliser leurs fonctionnalités.
 })
 export class ArtisanDetailComponent implements OnInit{
 
