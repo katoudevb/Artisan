@@ -18,6 +18,8 @@ import { CommonModule } from '@angular/common';
 // Module Angular fournissant les directives de base (ngIf, ngFor...).
 
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'; 
+import { HttpClient, HttpClientModule} from '@angular/common/http';
+
 // FormBuilder aide à construire le formulaire réactif.
 // FormGroup représente le groupe de contrôles du formulaire.
 // Validators permet de définir des règles de validation.
@@ -32,7 +34,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   standalone: true, 
   // Ce composant est autonome (Angular 14+), pas besoin de le déclarer dans un NgModule.
 
-  imports: [CommonModule, ReactiveFormsModule] 
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule] 
   // Modules importés dans ce composant standalone pour utiliser leurs fonctionnalités.
 })
 export class ArtisanDetailComponent implements OnInit{
@@ -56,7 +58,8 @@ export class ArtisanDetailComponent implements OnInit{
     private route: ActivatedRoute, // Injection pour accéder à l'URL
     private router: Router, // Injection pour navigation
     private ArtisanServices: ArtisansService, // Injection du service artisans
-    private fb: FormBuilder // Injection du form builder pour formulaire
+    private fb: FormBuilder,// Injection du form builder pour formulaire
+    private http: HttpClient
   ) {
     // Initialisation du formulaire avec des champs + validations
     this.contactForm = this.fb.group({
@@ -98,20 +101,24 @@ export class ArtisanDetailComponent implements OnInit{
   }
 
   // Méthode appelée à la soumission du formulaire
-  onSubmit(): void {
-    this.submitted = true; // Indique que l'utilisateur a tenté d'envoyer le formulaire
-
+onSubmit(): void {
     if (this.contactForm.invalid) {
-      // Si formulaire invalide, on affiche un message d'erreur
       this.errorMessage = 'Veuillez remplir tous les champs correctement.';
-      return; // Stop la fonction
+      return;
     }
 
-    // Simule un envoi de mail (ici aucune interaction réelle backend)
-    this.successMessage = 'Message envoyé avec succès'; 
-    this.errorMessage = '';
-    this.contactForm.reset(); // Réinitialise le formulaire
-    this.submitted = false; // Reset état soumis
+    // Envoi du formulaire au backend (qui enverra le mail via Maildev)
+    this.http.post('http://localhost:3000/api/contact', this.contactForm.value).subscribe({
+      next: () => {
+        this.successMessage = 'Message envoyé avec succès';
+        this.errorMessage = '';
+        this.contactForm.reset();
+        this.submitted = false;
+      },
+      error: () => {
+        this.errorMessage = 'Erreur lors de l\'envoi du message.';
+      }
+    });
   }
 
   // Getter pour accéder facilement aux contrôles du formulaire depuis le template
