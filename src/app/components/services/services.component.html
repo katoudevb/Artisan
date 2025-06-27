@@ -4,15 +4,6 @@
       <!-- Titre principal centré -->
       <h1 class="text-center mb-4">Artisans de Fabrication</h1>
 
-      <!-- Sélecteur de catégorie -->
-      <select [(ngModel)]="selectedCategory" class="form-select mb-3">
-        <option value="">Toutes les catégories</option>
-        <option value="Bâtiment">Bâtiment</option>
-        <option value="Services">Services</option>
-        <option value="Alimentation">Alimentation</option>
-        <option value="Fabrication">Fabrication</option>
-      </select>
-
       <!-- Message si aucun artisan trouvé -->
       <div *ngIf="(servicesArtisans | categoryFilter:selectedCategory).length === 0" class="alert alert-warning text-center">
         Aucun artisan trouvé dans cette catégorie.

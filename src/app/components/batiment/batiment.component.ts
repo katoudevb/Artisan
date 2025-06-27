@@ -16,9 +16,8 @@ import { CategoryFilterPipe } from '../../../pipe/category-filter.pipe'; // Pipe
 })
 export class BatimentComponent implements OnInit {
 
-  batimentArtisans: Artisan[] = [];
-  // Tableau qui stocke la liste des artisans filtrés par catégorie "Bâtiment"
-  selectedCategory: string = '';
+batimentArtisans: Artisan[] = [];
+selectedCategory: string = '';
   
   constructor(
     private ArtisansService: ArtisansService,
@@ -28,18 +27,18 @@ export class BatimentComponent implements OnInit {
     // Injection du routeur pour navigation
   ) { }
 
-  ngOnInit(): void {
-    // Au démarrage du composant, on récupère la liste des artisans dans la catégorie "Bâtiment"
-    // La méthode getArtisansByCategory est supposée renvoyer un tableau filtré synchronement
-    this.batimentArtisans = this.ArtisansService.getArtisansByCategory('Bâtiment')
-      .map((artisan: any) => ({
-        ...artisan,
-        note: Number(artisan.note) // Assure que la note est bien un nombre (casting)
+ ngOnInit(): void {
+    // Appel au service pour récupérer les artisans filtrés par catégorie "Fabrication"
+    // et conversion de la note en nombre pour s'assurer du typage correct
+    this.batimentArtisans = this.ArtisansService.getArtisansByCategory('Fabrication')
+      .map((artisan: any) => ({                         // Pour chaque artisan retourné :
+        ...artisan,                                     // On garde toutes les propriétés existantes
+        note: Number(artisan.note)                      // On force le champ "note" à être un nombre
       }));
   }
 
-  // Méthode appelée au clic sur un artisan pour naviguer vers sa page détail
+  // Méthode déclenchée lors d’un clic sur un artisan, redirige vers la page de détail
   detailArtisan(artisanId: string) {
-    this.router.navigate(['/artisan', artisanId]);
+    this.router.navigate(['/artisan', artisanId]);      // Navigation dynamique vers la route /artisan/:id
   }
 }

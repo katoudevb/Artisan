@@ -12,10 +12,9 @@ export class CategoryFilterPipe implements PipeTransform {
   
   // Méthode transform obligatoire pour un pipe, qui filtre un tableau d'artisans selon une catégorie donnée
   transform(artisans: Artisan[], category: string): Artisan[] {
-    // Gestion des cas où la catégorie ou la liste d'artisans est absente : on retourne un tableau vide
-    if (!category || category === 'all') {
-      return [];
-    }
-    return artisans.filter(a => a.category.toLowerCase() === category.toLowerCase());
+  if (!category || category === 'all') {
+    return artisans; // Affiche tout si aucune catégorie sélectionnée
+  }
+  return artisans.filter(a => a.category.toLowerCase() === category.toLowerCase());
   }
 }
